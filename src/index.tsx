@@ -8,6 +8,6 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <></>
+    <span>Blind Log</span>
   </React.StrictMode>,
 );
