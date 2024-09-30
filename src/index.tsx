@@ -12,7 +12,15 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <span className="logo">📒</span>
+      <div className="main">
+        <span className="logo">📒</span>
+        <button className="btn" type="button">
+          New Game
+        </button>
+        <button className="btn" type="button">
+          Game History
+        </button>
+      </div>
     </Provider>
   </React.StrictMode>,
 );
