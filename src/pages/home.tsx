@@ -1,16 +1,37 @@
-import './home.scss';
+import {
+  //
+  Avatar,
+  Button,
+  Center,
+  Container,
+  Grid,
+} from '@mantine/core';
 
 function Home() {
   return (
-    <div className="main">
-      <span className="logo">📒</span>
-      <button className="btn" type="button">
-        New Game
-      </button>
-      <button className="btn" type="button">
-        Game History
-      </button>
-    </div>
+    <Container my="md">
+      <Center>
+        <Grid>
+          <Grid.Col span={{ base: 12 }}>
+            <Grid justify="center">
+              <Avatar size="xl" radius="md">
+                <span>📒</span>
+              </Avatar>
+            </Grid>
+          </Grid.Col>
+          <Grid.Col span={{ base: 12 }}>
+            <Button variant="light" fullWidth>
+              New Game
+            </Button>
+          </Grid.Col>
+          <Grid.Col span={{ base: 12 }}>
+            <Button variant="light" fullWidth>
+              Game History
+            </Button>
+          </Grid.Col>
+        </Grid>
+      </Center>
+    </Container>
   );
 }
 
