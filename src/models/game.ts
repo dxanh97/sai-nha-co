@@ -1,5 +1,6 @@
 export interface Game {
   id: string;
+  timestamp: Date;
   name: string;
   betSize: number;
   playerNames: string[];

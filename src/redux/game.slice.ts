@@ -13,7 +13,10 @@ const gameSlice = createSlice({
   name: 'game',
   initialState: gameAdaptor.getInitialState(),
   reducers: {
-    createGame: (state, action: PayloadAction<Omit<Game, 'id' | 'rounds'>>) => {
+    createGame: (
+      state,
+      action: PayloadAction<Pick<Game, 'name' | 'betSize' | 'playerNames'>>,
+    ) => {
       const { name, betSize, playerNames } = action.payload;
       gameAdaptor.addOne(state, {
         id: nanoid(),
@@ -21,6 +24,7 @@ const gameSlice = createSlice({
         betSize,
         playerNames,
         rounds: [],
+        timestamp: new Date(),
       });
     },
     addRound: (
