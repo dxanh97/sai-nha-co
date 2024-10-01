@@ -6,9 +6,10 @@ import { createTheme, MantineProvider } from '@mantine/core';
 import '@mantine/core/styles.css';
 
 import { store } from './redux/store';
-import Home from './pages/home';
+import HomePage from './pages/home';
 
 import './index.scss';
+import NewGamePage from './pages/new-game';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
@@ -28,7 +29,8 @@ root.render(
               path="/"
               element={null} // layout component
             >
-              <Route index element={<Home />} />
+              <Route index element={<HomePage />} />
+              <Route path="/new-game" element={<NewGamePage />} />
             </Route>
           </Routes>
         </BrowserRouter>

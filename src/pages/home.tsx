@@ -1,13 +1,7 @@
-import {
-  //
-  Avatar,
-  Button,
-  Center,
-  Container,
-  Grid,
-} from '@mantine/core';
+import { Avatar, Button, Center, Container, Grid } from '@mantine/core';
+import { Link } from 'react-router-dom';
 
-function Home() {
+function HomePage() {
   return (
     <Container my="md">
       <Center>
@@ -20,9 +14,11 @@ function Home() {
             </Grid>
           </Grid.Col>
           <Grid.Col span={{ base: 12 }}>
-            <Button variant="light" fullWidth>
-              New Game
-            </Button>
+            <Link to="/new-game">
+              <Button variant="light" fullWidth>
+                New Game
+              </Button>
+            </Link>
           </Grid.Col>
           <Grid.Col span={{ base: 12 }}>
             <Button variant="light" fullWidth>
@@ -35,4 +31,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default HomePage;

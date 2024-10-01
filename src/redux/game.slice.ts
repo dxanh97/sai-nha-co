@@ -5,7 +5,7 @@ import {
   PayloadAction,
 } from '@reduxjs/toolkit';
 
-import { Game } from '../models/game';
+import { Game, Round } from '../models/game';
 
 const gameAdaptor = createEntityAdapter<Game>();
 
@@ -13,22 +13,41 @@ const gameSlice = createSlice({
   name: 'game',
   initialState: gameAdaptor.getInitialState(),
   reducers: {
-    createGame: (
-      state,
-      action: PayloadAction<Omit<Game, 'id' | 'receiptIds'>>,
-    ) => {
-      const { name, betSize, playerIds } = action.payload;
+    createGame: (state, action: PayloadAction<Omit<Game, 'id' | 'rounds'>>) => {
+      const { name, betSize, playerNames } = action.payload;
       gameAdaptor.addOne(state, {
         id: nanoid(),
         name,
         betSize,
-        playerIds,
-        receiptIds: [],
+        playerNames,
+        rounds: [],
       });
     },
-    updateGame: gameAdaptor.updateOne,
-    deleteGame: gameAdaptor.removeOne,
+    addRound: (
+      state,
+      action: PayloadAction<{
+        data: Pick<Round, 'stats'>;
+        gameId: string;
+      }>,
+    ) => {
+      const { data, gameId } = action.payload;
+      const { rounds } = gameAdaptor.getSelectors().selectById(state, gameId);
+      gameAdaptor.updateOne(state, {
+        id: gameId,
+        changes: {
+          rounds: [
+            ...rounds,
+            {
+              id: nanoid(),
+              timestamp: new Date(),
+              stats: data.stats,
+            },
+          ],
+        },
+      });
+    },
   },
 });
 
+export const { createGame, addRound } = gameSlice.actions;
 export default gameSlice;
