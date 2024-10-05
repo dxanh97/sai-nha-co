@@ -1,16 +1,7 @@
 export interface Game {
   id: string;
-  timestamp: Date;
+  timestamp: number;
   name: string;
   betSize: number;
   playerNames: string[];
-  rounds: Round[];
-}
-
-export interface Round {
-  id: string;
-  timestamp: Date;
-  stats: {
-    [playerName: string]: number;
-  };
 }

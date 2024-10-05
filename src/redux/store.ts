@@ -2,10 +2,12 @@ import { configureStore } from '@reduxjs/toolkit';
 import { useDispatch, useSelector } from 'react-redux';
 
 import gameSlice from './game.slice';
+import roundSlice from './round.slice';
 
 export const store = configureStore({
   reducer: {
     game: gameSlice.reducer,
+    round: roundSlice.reducer,
   },
 });
 
