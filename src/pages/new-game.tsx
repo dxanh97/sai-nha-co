@@ -10,13 +10,18 @@ import {
 import { useNavigate } from 'react-router-dom';
 import { nanoid } from '@reduxjs/toolkit';
 
-import { useAppDispatch } from '../redux/store';
+import { useAppDispatch, useAppSelector } from '../redux/store';
 import { createGame } from '../redux/game.slice';
 
 import AddPlayerInput from '../components/AddPlayerInput';
+import { selectLatestGame } from '../redux/game.selector';
 
 function NewGamePage() {
-  const [playerNames, setPlayerNames] = useState<string[]>([]);
+  const lastGame = useAppSelector(selectLatestGame);
+
+  const [playerNames, setPlayerNames] = useState<string[]>(
+    lastGame?.playerNames ?? ['test1', 'test2'],
+  );
   const [betSize, setBetSize] = useState(5);
   const [gameName, setGameName] = useState('Game #1');
 
@@ -51,7 +56,7 @@ function NewGamePage() {
           </Grid.Col>
           <Grid.Col>
             <AddPlayerInput
-              playerNames={playerNames}
+              playerNames={[...playerNames]}
               onChange={setPlayerNames}
             />
           </Grid.Col>

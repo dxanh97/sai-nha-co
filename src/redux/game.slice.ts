@@ -6,7 +6,9 @@ import {
 
 import { Game } from '../models/game';
 
-export const gameAdaptor = createEntityAdapter<Game>();
+export const gameAdaptor = createEntityAdapter<Game>({
+  sortComparer: (a, b) => b.timestamp - a.timestamp,
+});
 
 const gameSlice = createSlice({
   name: 'game',
