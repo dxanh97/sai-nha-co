@@ -2,6 +2,7 @@ import ReactDOM from 'react-dom/client';
 import { Routes, Route, BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { createTheme, MantineProvider } from '@mantine/core';
+import { ModalsProvider } from '@mantine/modals';
 import '@mantine/core/styles.css';
 import '@mantine/carousel/styles.css';
 
@@ -27,19 +28,21 @@ const theme = createTheme({
 
 root.render(
   <MantineProvider theme={theme}>
-    <Provider store={store}>
-      <BrowserRouter>
-        <Routes>
-          <Route
-            path="/"
-            element={null} // layout component
-          >
-            <Route index element={<HomePage />} />
-            <Route path="/new-game" element={<NewGamePage />} />
-            <Route path="/game/:gameId" element={<GameScreenPage />} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
-    </Provider>
+    <ModalsProvider>
+      <Provider store={store}>
+        <BrowserRouter>
+          <Routes>
+            <Route
+              path="/"
+              element={null} // layout component
+            >
+              <Route index element={<HomePage />} />
+              <Route path="/new-game" element={<NewGamePage />} />
+              <Route path="/game/:gameId" element={<GameScreenPage />} />
+            </Route>
+          </Routes>
+        </BrowserRouter>
+      </Provider>
+    </ModalsProvider>
   </MantineProvider>,
 );
