@@ -10,8 +10,6 @@ function AddPlayerInput(props: Props) {
 
   return (
     <TagsInput
-      autoFocus
-      size="xl"
       label="Press Enter to add a player"
       placeholder="Player name"
       value={playerNames}

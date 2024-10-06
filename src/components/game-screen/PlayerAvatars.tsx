@@ -16,7 +16,7 @@ function PlayerAvatars(props: Props) {
             <Avatar name={n} color="initials" radius="xl" />
           </Tooltip>
         ))}
-        {hiddenPlayers.length > 1 && (
+        {hiddenPlayers.length > 0 && (
           <Tooltip
             withArrow
             label={hiddenPlayers.map((n) => (
