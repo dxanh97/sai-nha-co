@@ -1,4 +1,5 @@
-import { Avatar, Box, Group, Indicator, Text } from '@mantine/core';
+import { Avatar, Box, Group, Indicator, Stack, Text } from '@mantine/core';
+import { Sparkline } from '@mantine/charts';
 
 import { getColor } from '../../utils/helpers';
 
@@ -31,6 +32,7 @@ function Leaderboard() {
       stat: list[2].stat,
     },
   ];
+  const positiveTrend = [10, 20, 40, 20, 40, 10, 50, 5, 10];
 
   return (
     <Box>
@@ -51,18 +53,33 @@ function Leaderboard() {
         ))}
         <Box p="xs" w="100%">
           {list.map((x, i) => (
-            <Group key={x.name} gap="sm" mb="sm" w="100%">
-              <Text>{`#${i + 1}`}</Text>
-              <Avatar size={40} name={x.name} color="initials" radius={40} />
-              <Box ta="left">
-                <Text fz="sm" fw={500}>
-                  {x.name}
-                </Text>
-                <Text fz="xs" c={getColor(x.stat)}>
-                  {x.stat}
-                </Text>
-              </Box>
-            </Group>
+            <Stack key={x.name} mb="sm" w="100%">
+              <Group gap="sm">
+                <Text>{`#${i + 1}`}</Text>
+                <Avatar size={40} name={x.name} color="initials" radius={40} />
+                <Box ta="left">
+                  <Text fz="sm" fw={500}>
+                    {x.name}
+                  </Text>
+                  <Text fz="xs" c={getColor(x.stat)}>
+                    {x.stat}
+                  </Text>
+                </Box>
+              </Group>
+              <Sparkline
+                w="100%"
+                h={50}
+                data={positiveTrend}
+                curveType="natural"
+                trendColors={{
+                  positive: 'green',
+                  negative: 'red',
+                  neutral: 'gray.5',
+                }}
+                fillOpacity={0.2}
+                strokeWidth={5}
+              />
+            </Stack>
           ))}
         </Box>
       </Group>

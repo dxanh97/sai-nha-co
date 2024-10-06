@@ -5,6 +5,7 @@ import { Container, createTheme, MantineProvider } from '@mantine/core';
 import { ModalsProvider } from '@mantine/modals';
 import '@mantine/core/styles.css';
 import '@mantine/carousel/styles.css';
+import '@mantine/charts/styles.css';
 
 import { store } from './redux/store';
 
