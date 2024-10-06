@@ -8,7 +8,7 @@ import {
 import { Round } from '../models/round';
 
 export const roundAdaptor = createEntityAdapter<Round>({
-  sortComparer: (a, b) => a.timestamp.getTime() - b.timestamp.getTime(),
+  sortComparer: (a, b) => b.timestamp - a.timestamp,
 });
 
 const roundSlice = createSlice({
@@ -24,7 +24,7 @@ const roundSlice = createSlice({
         id: nanoid(),
         gameId,
         stats,
-        timestamp: new Date(),
+        timestamp: new Date().getTime(),
       });
     },
   },

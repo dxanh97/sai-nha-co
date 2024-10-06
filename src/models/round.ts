@@ -1,7 +1,7 @@
 export interface Round {
   id: string;
   gameId: string;
-  timestamp: Date;
+  timestamp: number;
   stats: {
     [playerName: string]: number;
   };
