@@ -27,8 +27,9 @@ const roundSlice = createSlice({
         timestamp: new Date().getTime(),
       });
     },
+    deleteRound: roundAdaptor.removeOne,
   },
 });
 
-export const { createRound } = roundSlice.actions;
+export const { createRound, deleteRound } = roundSlice.actions;
 export default roundSlice;
