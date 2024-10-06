@@ -14,6 +14,8 @@ import { useAppDispatch, useAppSelector } from '../../redux/store';
 import { selectAllRoundsFromGameId } from '../../redux/round.selector';
 import { selectGameById } from '../../redux/game.selector';
 import { deleteRound } from '../../redux/round.slice';
+import { getColor } from '../../utils/helpers';
+
 
 interface Props {
   gameId: string;
@@ -69,15 +71,12 @@ function RoundsList(props: Props) {
               <ScrollArea>
                 <Flex gap="xs" my="xs">
                   {game.playerNames.map((playerName) => {
-                    let color = '';
                     const stat = stats[playerName];
-                    if (stat > 0) color = 'green';
-                    if (stat < 0) color = 'red';
                     return (
                       <Indicator
                         key={playerName}
                         inline
-                        color={color}
+                        color={getColor(stat)}
                         label={stat}
                         size={16}
                       >

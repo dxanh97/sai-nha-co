@@ -60,6 +60,7 @@ function GameScreenPage() {
               size: 'sm',
               radius: 'md',
               withCloseButton: false,
+              centered: true,
               labels: { confirm: 'Confirm', cancel: 'Cancel' },
               onConfirm: () => navigate('/'),
             });

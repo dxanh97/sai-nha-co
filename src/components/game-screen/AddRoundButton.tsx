@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import {
   ActionIcon,
   Avatar,
@@ -11,7 +12,8 @@ import {
 } from '@mantine/core';
 import { Carousel } from '@mantine/carousel';
 import { useDisclosure, useMap } from '@mantine/hooks';
-import { useEffect } from 'react';
+
+import { getColor } from '../../utils/helpers';
 
 interface Props {
   betSize: number;
@@ -44,16 +46,13 @@ function AddRoundButton(props: Props) {
       <Modal opened={opened} onClose={close} title="New round" centered>
         <Carousel loop slideGap="sm">
           {playerNames.map((x) => {
-            const playerStat = statsMap.get(x) ?? 0;
-            const remaining = 0 - (balance - playerStat);
+            const stat = statsMap.get(x) ?? 0;
+            const remaining = 0 - (balance - stat);
 
             const setStat = (amount: number) => {
               statsMap.set(x, amount);
             };
 
-            let statColor = '';
-            if (playerStat > 0) statColor = 'green';
-            if (playerStat < 0) statColor = 'red';
             return (
               <Carousel.Slide key={x}>
                 <Card shadow="sm" padding="lg" radius="md" withBorder>
@@ -72,19 +71,25 @@ function AddRoundButton(props: Props) {
                       radius="xl"
                       p="md"
                       color="red"
-                      onClick={() => setStat(playerStat - betSize)}
+                      onClick={() => setStat(stat - betSize)}
                     >
                       {`-${betSize}`}
                     </ActionIcon>
-                    <Text fz={50} m="lg" miw="100px" ta="center" c={statColor}>
-                      {playerStat}
+                    <Text
+                      fz={50}
+                      m="lg"
+                      miw="100px"
+                      ta="center"
+                      c={getColor(stat)}
+                    >
+                      {stat}
                     </Text>
                     <ActionIcon
                       variant="light"
                       radius="xl"
                       p="md"
                       color="green"
-                      onClick={() => setStat(playerStat + betSize)}
+                      onClick={() => setStat(stat + betSize)}
                     >
                       {`+${betSize}`}
                     </ActionIcon>
@@ -105,7 +110,7 @@ function AddRoundButton(props: Props) {
                     fullWidth
                     mt="xs"
                     onClick={() => setStat(remaining)}
-                    disabled={remaining === 0 || remaining === playerStat}
+                    disabled={remaining === 0 || remaining === stat}
                   >
                     {`Take remaining (${remaining})`}
                   </Button>
