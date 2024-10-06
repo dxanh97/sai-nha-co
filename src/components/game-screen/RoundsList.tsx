@@ -11,6 +11,7 @@ import {
 
 import { useAppSelector } from '../../redux/store';
 import { selectAllRoundsFromGameId } from '../../redux/round.selector';
+import { selectGameById } from '../../redux/game.selector';
 
 interface Props {
   gameId: string;
@@ -18,6 +19,7 @@ interface Props {
 
 function RoundsList(props: Props) {
   const { gameId } = props;
+  const game = useAppSelector((s) => selectGameById(s, gameId));
   const rounds = useAppSelector((s) => selectAllRoundsFromGameId(s, gameId));
 
   const formatDate = (timestamp: number) => {
@@ -43,7 +45,7 @@ function RoundsList(props: Props) {
             <Card shadow="sm" p="xs" pb={0} radius="md" withBorder>
               <ScrollArea>
                 <Flex gap="xs" my="xs">
-                  {Object.keys(stats).map((playerName) => {
+                  {game.playerNames.map((playerName) => {
                     let color = '';
                     const stat = stats[playerName];
                     if (stat > 0) color = 'green';
