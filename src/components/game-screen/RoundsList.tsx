@@ -43,6 +43,10 @@ function RoundsList(props: Props) {
         return (
           <Box key={id} mt="md">
             <Card shadow="sm" p="xs" pb={0} radius="md" withBorder>
+              <Group justify="space-between">
+                <Text c="dimmed">{`#${rounds.length - i}`}</Text>
+                <Text c="dimmed">{formatDate(timestamp)}</Text>
+              </Group>
               <ScrollArea>
                 <Flex gap="xs" my="xs">
                   {game.playerNames.map((playerName) => {
@@ -64,10 +68,6 @@ function RoundsList(props: Props) {
                   })}
                 </Flex>
               </ScrollArea>
-              <Group justify="space-between">
-                <Text c="dimmed">{`#${rounds.length - i}`}</Text>
-                <Text c="dimmed">{formatDate(timestamp)}</Text>
-              </Group>
             </Card>
           </Box>
         );
