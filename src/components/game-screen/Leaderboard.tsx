@@ -1,4 +1,12 @@
-import { Avatar, Box, Group, Indicator, Stack, Text } from '@mantine/core';
+import {
+  Avatar,
+  Box,
+  Card,
+  Group,
+  Indicator,
+  Stack,
+  Text,
+} from '@mantine/core';
 import { Sparkline } from '@mantine/charts';
 
 import { getColor } from '../../utils/helpers';
@@ -46,40 +54,47 @@ function Leaderboard() {
             >
               <Avatar name={x.name} color="initials" size="lg" />
             </Indicator>
-            <Text fz={i !== 1 ? '20px' : '28px'} c={getColor(x.stat)}>
+            <Text fz={i !== 1 ? '20px' : '28px'} fw={800} c={getColor(x.stat)}>
               {x.stat}
             </Text>
           </Box>
         ))}
         <Box p="xs" w="100%">
           {list.map((x, i) => (
-            <Stack key={x.name} mb="sm" w="100%">
-              <Group gap="sm">
-                <Text>{`#${i + 1}`}</Text>
-                <Avatar size={40} name={x.name} color="initials" radius={40} />
-                <Box ta="left">
-                  <Text fz="sm" fw={500}>
-                    {x.name}
-                  </Text>
-                  <Text fz="xs" c={getColor(x.stat)}>
-                    {x.stat}
-                  </Text>
-                </Box>
-              </Group>
-              <Sparkline
-                w="100%"
-                h={50}
-                data={positiveTrend}
-                curveType="natural"
-                trendColors={{
-                  positive: 'green',
-                  negative: 'red',
-                  neutral: 'gray.5',
-                }}
-                fillOpacity={0.2}
-                strokeWidth={5}
-              />
-            </Stack>
+            <Card key={x.name} shadow="sm" mb="xs">
+              <Stack mb="sm" w="100%">
+                <Group gap="sm">
+                  <Text>{`#${i + 1}`}</Text>
+                  <Avatar
+                    size={40}
+                    name={x.name}
+                    color="initials"
+                    radius={40}
+                  />
+                  <Group justify="space-between" flex={1}>
+                    <Text fz="lg" fw={500}>
+                      {x.name}
+                    </Text>
+                    <Text fz="lg" fw={800} c={getColor(x.stat)}>
+                      {x.stat}
+                    </Text>
+                  </Group>
+                </Group>
+                <Sparkline
+                  w="100%"
+                  h={50}
+                  data={positiveTrend}
+                  curveType="natural"
+                  trendColors={{
+                    positive: 'green',
+                    negative: 'red',
+                    neutral: 'gray.5',
+                  }}
+                  fillOpacity={0.2}
+                  strokeWidth={5}
+                />
+              </Stack>
+            </Card>
           ))}
         </Box>
       </Group>
