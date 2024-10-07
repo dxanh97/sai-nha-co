@@ -46,7 +46,7 @@ function AddRoundButton(props: Props) {
   return (
     <>
       <Modal opened={opened} onClose={close} title="Ván mới" centered>
-        <Carousel loop slideGap="sm">
+        <Carousel loop slideGap="sm" slideSize="70%" withControls={false}>
           {playerNames.map((x) => {
             const stat = statsMap.get(x) ?? 0;
             const remaining = 0 - (balance - stat);
