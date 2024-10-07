@@ -1,5 +1,4 @@
-import { Button } from '@mantine/core';
-import { Text } from 'recharts';
+import { Button, Text } from '@mantine/core';
 
 interface Props {
   emoji: string;
