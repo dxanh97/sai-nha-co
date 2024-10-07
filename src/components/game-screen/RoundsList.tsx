@@ -17,6 +17,7 @@ import { deleteRound } from '../../redux/round.slice';
 import { formatNumber, getColor } from '../../utils/helpers';
 
 import Empty from '../shared/Empty';
+import EmojiButton from '../shared/EmojiButton';
 
 interface Props {
   gameId: string;
@@ -53,14 +54,12 @@ function RoundsList(props: Props) {
         const { id, stats, timestamp } = round;
         return (
           <Box key={id} mt="md">
-            <Card shadow="sm" p="xs" pb={0} radius="md" withBorder>
+            <Card shadow="sm" p="xs" py={0} radius="md" withBorder>
               <Group justify="space-between">
                 <Text c="dimmed">
                   {`#${rounds.length - i} - ${formatDate(timestamp)}`}
                 </Text>
-                <Text c="dimmed" onClick={() => onDeleteRound(id)}>
-                  🗑️
-                </Text>
+                <EmojiButton emoji="🗑️" onClick={() => onDeleteRound(id)} />
               </Group>
               <ScrollArea>
                 <Flex gap="xs" my="xs">

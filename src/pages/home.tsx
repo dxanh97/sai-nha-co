@@ -11,6 +11,7 @@ import TopNav from '../components/shared/TopNav';
 import Empty from '../components/shared/Empty';
 import PlayerAvatars from '../components/game-screen/PlayerAvatars';
 import AddActionButton from '../components/shared/AddActionButton';
+import EmojiButton from '../components/shared/EmojiButton';
 
 function HomePage() {
   const navigate = useNavigate();
@@ -42,19 +43,21 @@ function HomePage() {
         <Card
           key={x.id}
           shadow="sm"
-          mb="sm"
-          onClick={() => navigate(`/game/${x.id}`)}
+          p="xs"
+          pt={0}
+          mt="sm"
+          radius="md"
+          withBorder
         >
           <Group justify="space-between">
             <Text fw={800}>{x.name}</Text>
-            <Text
-              onClick={(e) => {
-                e.stopPropagation();
-                onDeleteGame(x.id);
-              }}
-            >
-              🗑️
-            </Text>
+            <Group>
+              <EmojiButton
+                emoji="🔍"
+                onClick={() => navigate(`/game/${x.id}`)}
+              />
+              <EmojiButton emoji="🗑️" onClick={() => onDeleteGame(x.id)} />
+            </Group>
           </Group>
           <Text c="dimmed">{formatDateTime(x.timestamp)}</Text>
           <PlayerAvatars playerNames={x.playerNames} />
