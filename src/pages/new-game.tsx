@@ -8,6 +8,7 @@ import { createGame } from '../redux/game.slice';
 import { selectLatestGame } from '../redux/game.selector';
 
 import AddPlayerInput from '../components/AddPlayerInput';
+import TopNav from '../components/shared/TopNav';
 
 function NewGamePage() {
   const lastGame = useAppSelector(selectLatestGame);
@@ -37,6 +38,8 @@ function NewGamePage() {
 
   return (
     <Stack>
+      <TopNav title="New game" />
+
       <Input.Wrapper label="Game Name">
         <Input value={gameName} onChange={(e) => setGameName(e.target.value)} />
       </Input.Wrapper>
@@ -54,7 +57,7 @@ function NewGamePage() {
       <Button
         variant="light"
         fullWidth
-        disabled={playerNames.length < 2}
+        disabled={playerNames.length < 3}
         onClick={onStartGame}
       >
         Start Game

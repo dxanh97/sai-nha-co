@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
-import { Box, Button, Flex, Tabs, Text } from '@mantine/core';
-import { modals } from '@mantine/modals';
+import { Box, Tabs } from '@mantine/core';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { selectGameById } from '../redux/game.selector';
@@ -11,6 +10,7 @@ import PlayerAvatars from '../components/game-screen/PlayerAvatars';
 import AddRoundButton from '../components/game-screen/AddRoundButton';
 import RoundsList from '../components/game-screen/RoundsList';
 import Leaderboard from '../components/game-screen/Leaderboard';
+import TopNav from '../components/shared/TopNav';
 
 function GameScreenPage() {
   const { gameId = '' } = useParams();
@@ -36,12 +36,9 @@ function GameScreenPage() {
 
   return game ? (
     <Box>
-      <Flex justify="space-between" align="center">
-        <Text size="xl" fw={800}>
-          {gameName}
-        </Text>
+      <TopNav title={gameName}>
         <PlayerAvatars playerNames={playerNames} />
-      </Flex>
+      </TopNav>
 
       <Tabs
         variant="pills"
@@ -68,27 +65,6 @@ function GameScreenPage() {
         playerNames={playerNames}
         onSave={onSaveRound}
       />
-
-      {false && (
-        <Button
-          variant="subtle"
-          fullWidth
-          mb="xs"
-          onClick={() => {
-            modals.openConfirmModal({
-              title: 'End the current game?',
-              size: 'sm',
-              radius: 'md',
-              withCloseButton: false,
-              centered: true,
-              labels: { confirm: 'Confirm', cancel: 'Cancel' },
-              onConfirm: () => navigate('/'),
-            });
-          }}
-        >
-          End Game
-        </Button>
-      )}
     </Box>
   ) : null;
 }
