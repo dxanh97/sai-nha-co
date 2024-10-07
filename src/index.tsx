@@ -8,11 +8,12 @@ import {
   virtualColor,
 } from '@mantine/core';
 import { ModalsProvider } from '@mantine/modals';
+import { PersistGate } from 'redux-persist/integration/react';
 import '@mantine/core/styles.css';
 import '@mantine/carousel/styles.css';
 import '@mantine/charts/styles.css';
 
-import { store } from './redux/store';
+import { persistor, store } from './redux/store';
 
 import HomePage from './pages/home';
 import NewGamePage from './pages/new-game';
@@ -41,20 +42,22 @@ root.render(
   <MantineProvider theme={theme} defaultColorScheme="auto">
     <ModalsProvider>
       <Provider store={store}>
-        <Container p="sm">
-          <BrowserRouter>
-            <Routes>
-              <Route
-                path="/"
-                element={null} // layout component
-              >
-                <Route index element={<HomePage />} />
-                <Route path="/new-game" element={<NewGamePage />} />
-                <Route path="/game/:gameId" element={<GameScreenPage />} />
-              </Route>
-            </Routes>
-          </BrowserRouter>
-        </Container>
+        <PersistGate loading={null} persistor={persistor}>
+          <Container p="sm">
+            <BrowserRouter>
+              <Routes>
+                <Route
+                  path="/"
+                  element={null} // layout component
+                >
+                  <Route index element={<HomePage />} />
+                  <Route path="/new-game" element={<NewGamePage />} />
+                  <Route path="/game/:gameId" element={<GameScreenPage />} />
+                </Route>
+              </Routes>
+            </BrowserRouter>
+          </Container>
+        </PersistGate>
       </Provider>
     </ModalsProvider>
   </MantineProvider>,
