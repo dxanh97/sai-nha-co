@@ -6,6 +6,9 @@
     "plugin:react/jsx-runtime",
     "prettier"
   ],
+  "rules": {
+    "react/require-default-props": 0
+  },
   "parserOptions": {
     "project": "./tsconfig.json"
   }
