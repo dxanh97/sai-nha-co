@@ -43,8 +43,14 @@ function GameScreenPage() {
         <PlayerAvatars playerNames={playerNames} />
       </Flex>
 
-      <Tabs variant="pills" radius="xl" defaultValue="1">
-        <Tabs.List>
+      <Tabs
+        variant="pills"
+        radius="xl"
+        defaultValue="1"
+        mt="sm"
+        keepMounted={false}
+      >
+        <Tabs.List grow>
           <Tabs.Tab value="1">Rounds Log</Tabs.Tab>
           <Tabs.Tab value="2">Leaderboard</Tabs.Tab>
         </Tabs.List>
