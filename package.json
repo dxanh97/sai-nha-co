@@ -1,6 +1,6 @@
 {
-  "name": "blind-log",
-  "version": "0.0.1",
+  "name": "sai-nha-co",
+  "version": "1.0.0",
   "private": true,
   "dependencies": {
     "@hello-pangea/dnd": "^17.0.0",

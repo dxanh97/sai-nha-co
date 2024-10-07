@@ -48,8 +48,8 @@ function GameScreenPage() {
         keepMounted={false}
       >
         <Tabs.List grow>
-          <Tabs.Tab value="1">Rounds Log</Tabs.Tab>
-          <Tabs.Tab value="2">Leaderboard</Tabs.Tab>
+          <Tabs.Tab value="1">Danh Sách Ván</Tabs.Tab>
+          <Tabs.Tab value="2">Bảng Xếp Hạng</Tabs.Tab>
         </Tabs.List>
 
         <Tabs.Panel value="1">

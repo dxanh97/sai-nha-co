@@ -45,7 +45,7 @@ function AddRoundButton(props: Props) {
 
   return (
     <>
-      <Modal opened={opened} onClose={close} title="New round" centered>
+      <Modal opened={opened} onClose={close} title="Ván mới" centered>
         <Carousel loop slideGap="sm">
           {playerNames.map((x) => {
             const stat = statsMap.get(x) ?? 0;
@@ -105,7 +105,7 @@ function AddRoundButton(props: Props) {
                       onJackpot(x);
                     }}
                   >
-                    <Text>Jackpot&nbsp;</Text>
+                    <Text>Lụm hết&nbsp;</Text>
                     <Text c={getColor(jackpotAmount)} fw={500}>
                       ({formatNumber(jackpotAmount)})
                     </Text>
@@ -117,7 +117,7 @@ function AddRoundButton(props: Props) {
                     onClick={() => setStat(remaining)}
                     disabled={remaining === 0 || remaining === stat}
                   >
-                    <Text>Take remaining&nbsp;</Text>
+                    <Text>Tính tiền nhà cái&nbsp;</Text>
                     <Text c={getColor(remaining)} fw={500}>
                       ({formatNumber(remaining)})
                     </Text>
@@ -138,7 +138,7 @@ function AddRoundButton(props: Props) {
             close();
           }}
         >
-          Save
+          Lưu
         </Button>
       </Modal>
 

@@ -23,12 +23,12 @@ function HomePage() {
 
   const onDeleteGame = (gameId: string) => {
     modals.openConfirmModal({
-      title: 'Delete this game?',
+      title: 'Xoá game này?',
       size: 'sm',
       radius: 'md',
       withCloseButton: false,
       centered: true,
-      labels: { confirm: 'Confirm', cancel: 'Cancel' },
+      labels: { confirm: 'Oke', cancel: 'Thoi' },
       onConfirm: () => dispatch(deleteGame(gameId)),
     });
   };
@@ -39,11 +39,9 @@ function HomePage() {
 
   return (
     <Box>
-      <TopNav isHome title="Bet Log" />
+      <TopNav isHome title="Sải Nhà Cố" />
 
-      {allGames.length === 0 && (
-        <Empty emoji="👀" subTitle="Create a game and start logging" />
-      )}
+      {allGames.length === 0 && <Empty emoji="👀" subTitle="Tạo game mới đê" />}
       {allGames.map((x) => (
         <Card
           key={x.id}

@@ -5,7 +5,7 @@ import { nanoid } from '@reduxjs/toolkit';
 
 import { useAppDispatch, useAppSelector } from '../redux/store';
 import { createGame } from '../redux/game.slice';
-import { selectLatestGame } from '../redux/game.selector';
+import { selectAllGames, selectLatestGame } from '../redux/game.selector';
 
 import AddPlayerInput from '../components/AddPlayerInput';
 import TopNav from '../components/shared/TopNav';
@@ -13,12 +13,12 @@ import TopNav from '../components/shared/TopNav';
 function NewGamePage() {
   const lastGame = useAppSelector(selectLatestGame);
 
+  const allGames = useAppSelector(selectAllGames);
   const [playerNames, setPlayerNames] = useState<string[]>(
-    // TODO: remove testing data
-    lastGame?.playerNames ?? ['Xanh', 'Dat', 'Hien', 'XH', 'MH'],
+    lastGame?.playerNames ?? [],
   );
   const [betSize, setBetSize] = useState(5);
-  const [gameName, setGameName] = useState('Game #1');
+  const [gameName, setGameName] = useState(`Game #${allGames.length + 1}`);
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -38,29 +38,30 @@ function NewGamePage() {
 
   return (
     <Stack>
-      <TopNav title="New game" />
+      <TopNav title="Game Mới" />
 
-      <Input.Wrapper label="Game Name">
+      <Input.Wrapper label="Tên game">
         <Input value={gameName} onChange={(e) => setGameName(e.target.value)} />
       </Input.Wrapper>
       <AddPlayerInput
         playerNames={[...playerNames]}
         onChange={setPlayerNames}
       />
-      <Input.Wrapper label="Bet size">
+      <Input.Wrapper label="Mức bẹt">
         <NumberInput
           inputMode="numeric"
           value={betSize}
+          min={1}
           onChange={(e) => setBetSize(parseInt(`${e}`, 10))}
         />
       </Input.Wrapper>
       <Button
         variant="light"
         fullWidth
-        disabled={playerNames.length < 3}
+        disabled={playerNames.length < 3 || !gameName || betSize < 1}
         onClick={onStartGame}
       >
-        Start Game
+        Zô
       </Button>
     </Stack>
   );
