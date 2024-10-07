@@ -5,9 +5,9 @@ import { nanoid } from '@reduxjs/toolkit';
 
 import { useAppDispatch, useAppSelector } from '../redux/store';
 import { createGame } from '../redux/game.slice';
+import { selectLatestGame } from '../redux/game.selector';
 
 import AddPlayerInput from '../components/AddPlayerInput';
-import { selectLatestGame } from '../redux/game.selector';
 
 function NewGamePage() {
   const lastGame = useAppSelector(selectLatestGame);

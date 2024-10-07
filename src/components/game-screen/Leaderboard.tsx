@@ -77,7 +77,7 @@ function Leaderboard(props: Props) {
 
   return rounds.length >= 3 ? (
     <ScrollArea>
-      <Group justify="space-around" py="xl">
+      <Group justify="space-around" pt="xl">
         {top3.map((x, i) => (
           <Box key={x.name} pt={i !== 1 ? '80px' : 0} ta="center">
             <Indicator

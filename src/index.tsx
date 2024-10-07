@@ -1,7 +1,12 @@
 import ReactDOM from 'react-dom/client';
 import { Routes, Route, BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import { Container, createTheme, MantineProvider } from '@mantine/core';
+import {
+  Container,
+  createTheme,
+  MantineProvider,
+  virtualColor,
+} from '@mantine/core';
 import { ModalsProvider } from '@mantine/modals';
 import '@mantine/core/styles.css';
 import '@mantine/carousel/styles.css';
@@ -22,11 +27,18 @@ const theme = createTheme({
   headings: {
     fontFamily: 'Space Grotesk',
   },
-  primaryColor: 'gray',
+  primaryColor: 'primary',
+  colors: {
+    primary: virtualColor({
+      name: 'primary',
+      dark: 'gray',
+      light: 'dark',
+    }),
+  },
 });
 
 root.render(
-  <MantineProvider theme={theme} defaultColorScheme="dark">
+  <MantineProvider theme={theme} defaultColorScheme="auto">
     <ModalsProvider>
       <Provider store={store}>
         <Container p="sm">
