@@ -1,10 +1,11 @@
-import { Box, Card, Group, Text } from '@mantine/core';
+import { Box, Card, Group, Input, Text } from '@mantine/core';
+import { useDebouncedCallback } from '@mantine/hooks';
 import { modals } from '@mantine/modals';
 import { useNavigate } from 'react-router-dom';
 
 import { useAppDispatch, useAppSelector } from '../redux/store';
 import { selectAllGames } from '../redux/game.selector';
-import { deleteGame } from '../redux/game.slice';
+import { deleteGame, updateGameName } from '../redux/game.slice';
 import { formatDateTime } from '../utils/helpers';
 
 import TopNav from '../components/shared/TopNav';
@@ -32,6 +33,10 @@ function HomePage() {
     });
   };
 
+  const handleUpdateName = useDebouncedCallback((id: string, name: string) => {
+    dispatch(updateGameName({ id, name }));
+  }, 500);
+
   return (
     <Box>
       <TopNav isHome title="Bet Log" />
@@ -50,7 +55,13 @@ function HomePage() {
           withBorder
         >
           <Group justify="space-between">
-            <Text fw={800}>{x.name}</Text>
+            <Input
+              variant="unstyled"
+              defaultValue={x.name}
+              size="lg"
+              fw={800}
+              onChange={(e) => handleUpdateName(x.id, e.target.value)}
+            />
             <Group>
               <EmojiButton
                 emoji="🔍"
