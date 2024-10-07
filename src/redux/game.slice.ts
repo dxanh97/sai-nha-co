@@ -24,8 +24,9 @@ const gameSlice = createSlice({
         timestamp: new Date().getTime(),
       });
     },
+    deleteGame: gameAdaptor.removeOne,
   },
 });
 
-export const { createGame } = gameSlice.actions;
+export const { createGame, deleteGame } = gameSlice.actions;
 export default gameSlice;
