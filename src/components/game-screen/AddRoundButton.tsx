@@ -13,7 +13,7 @@ import {
 import { Carousel } from '@mantine/carousel';
 import { useDisclosure, useMap } from '@mantine/hooks';
 
-import { getColor, getSum } from '../../utils/helpers';
+import { formatNumber, getColor, getSum } from '../../utils/helpers';
 
 interface Props {
   betSize: number;
@@ -82,7 +82,7 @@ function AddRoundButton(props: Props) {
                       ta="center"
                       c={getColor(stat)}
                     >
-                      {stat}
+                      {formatNumber(stat)}
                     </Text>
                     <ActionIcon
                       variant="light"
@@ -103,7 +103,10 @@ function AddRoundButton(props: Props) {
                       onJackpot(x);
                     }}
                   >
-                    {`Jackpot (${jackpotAmount})`}
+                    <Text>Jackpot&nbsp;</Text>
+                    <Text c={getColor(jackpotAmount)} fw={500}>
+                      ({formatNumber(jackpotAmount)})
+                    </Text>
                   </Button>
                   <Button
                     variant="light"
@@ -112,7 +115,10 @@ function AddRoundButton(props: Props) {
                     onClick={() => setStat(remaining)}
                     disabled={remaining === 0 || remaining === stat}
                   >
-                    {`Take remaining (${remaining})`}
+                    <Text>Take remaining&nbsp;</Text>
+                    <Text c={getColor(remaining)} fw={500}>
+                      ({formatNumber(remaining)})
+                    </Text>
                   </Button>
                 </Card>
               </Carousel.Slide>

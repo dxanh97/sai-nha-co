@@ -14,7 +14,7 @@ import { Sparkline } from '@mantine/charts';
 import { useAppSelector } from '../../redux/store';
 import { selectAllRoundsFromGameId } from '../../redux/round.selector';
 
-import { getColor } from '../../utils/helpers';
+import { formatNumber, getColor } from '../../utils/helpers';
 
 interface Props {
   gameId: string;
@@ -90,7 +90,7 @@ function Leaderboard(props: Props) {
               </Avatar>
             </Indicator>
             <Text fz={i !== 1 ? '20px' : '28px'} fw={800} c={getColor(x.stat)}>
-              {x.stat ?? 0}
+              {formatNumber(x.stat ?? 0)}
             </Text>
           </Box>
         ))}
@@ -111,7 +111,7 @@ function Leaderboard(props: Props) {
                       {x.name}
                     </Text>
                     <Text fz="lg" fw={800} c={getColor(x.stat)}>
-                      {x.stat}
+                      {formatNumber(x.stat)}
                     </Text>
                   </Group>
                 </Group>

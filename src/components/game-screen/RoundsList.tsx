@@ -14,7 +14,7 @@ import { useAppDispatch, useAppSelector } from '../../redux/store';
 import { selectAllRoundsFromGameId } from '../../redux/round.selector';
 import { selectGameById } from '../../redux/game.selector';
 import { deleteRound } from '../../redux/round.slice';
-import { getColor } from '../../utils/helpers';
+import { formatNumber, getColor } from '../../utils/helpers';
 
 interface Props {
   gameId: string;
@@ -76,7 +76,7 @@ function RoundsList(props: Props) {
                         key={playerName}
                         inline
                         color={getColor(stat)}
-                        label={stat}
+                        label={formatNumber(stat ?? 0)}
                         size={16}
                       >
                         <Avatar name={playerName} color="initials" />

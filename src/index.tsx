@@ -22,11 +22,11 @@ const theme = createTheme({
   headings: {
     fontFamily: 'Space Grotesk',
   },
-  primaryColor: 'grape',
+  primaryColor: 'gray',
 });
 
 root.render(
-  <MantineProvider theme={theme} defaultColorScheme="auto">
+  <MantineProvider theme={theme} defaultColorScheme="dark">
     <ModalsProvider>
       <Provider store={store}>
         <Container p="sm">
