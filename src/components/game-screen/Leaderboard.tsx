@@ -14,7 +14,7 @@ import { Sparkline } from '@mantine/charts';
 import { useAppSelector } from '../../redux/store';
 import { selectAllRoundsFromGameId } from '../../redux/round.selector';
 
-import { getColor, getSum } from '../../utils/helpers';
+import { getColor } from '../../utils/helpers';
 
 interface Props {
   gameId: string;
@@ -25,26 +25,30 @@ function Leaderboard(props: Props) {
   const rounds = useAppSelector((s) => selectAllRoundsFromGameId(s, gameId));
   const playerHistory = useMemo(
     () =>
-      rounds.reduce<{
+      [...rounds.reverse()].reduce<{
         [playerName: string]: number[];
       }>((acc, cur) => {
         const playerNames = Object.keys(cur.stats);
-        const result = { ...acc };
-        playerNames.forEach((name) => {
-          const history = result[name] ?? [0];
-          result[name] = [...history, getSum(history) + cur.stats[name]];
-        });
-        return result;
+        return playerNames.reduce((result, name) => {
+          const history = acc[name] ?? [0];
+          return {
+            ...result,
+            [name]: [...history, history[history.length - 1] + cur.stats[name]],
+          };
+        }, {});
       }, {}),
     [rounds],
   );
 
   const dataList = useMemo(
     () =>
-      Object.keys(playerHistory).map((name) => ({
-        name,
-        stat: getSum(playerHistory[name]),
-      })),
+      Object.keys(playerHistory).map((name) => {
+        const history = playerHistory[name];
+        return {
+          name,
+          stat: history[history.length - 1],
+        };
+      }),
     [playerHistory],
   );
 
@@ -71,11 +75,11 @@ function Leaderboard(props: Props) {
     },
   ];
 
-  return (
+  return rounds.length >= 3 ? (
     <ScrollArea>
       <Group justify="space-around" py="xl">
         {top3.map((x, i) => (
-          <Box pt={i !== 1 ? '80px' : 0} ta="center">
+          <Box key={x.name} pt={i !== 1 ? '80px' : 0} ta="center">
             <Indicator
               inline
               label={<Text fz={i !== 1 ? '40px' : '50px'}>{x.medal}</Text>}
@@ -130,6 +134,16 @@ function Leaderboard(props: Props) {
         </Box>
       </Group>
     </ScrollArea>
+  ) : (
+    <Box ta="center" py="150px">
+      <Text fz="100px">🏜️</Text>
+      <Text fz="h3" fw={500}>
+        Empty
+      </Text>
+      <Text>
+        Need <b>{3 - rounds.length}</b> more rounds
+      </Text>
+    </Box>
   );
 }
 
