@@ -1,14 +1,16 @@
 import { useEffect } from 'react';
-import { Box, Button, Flex, Text } from '@mantine/core';
+import { Box, Button, Flex, Tabs, Text } from '@mantine/core';
 import { modals } from '@mantine/modals';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { selectGameById } from '../redux/game.selector';
 import { useAppDispatch, useAppSelector } from '../redux/store';
+import { createRound } from '../redux/round.slice';
+
 import PlayerAvatars from '../components/game-screen/PlayerAvatars';
 import AddRoundButton from '../components/game-screen/AddRoundButton';
-import { createRound } from '../redux/round.slice';
 import RoundsList from '../components/game-screen/RoundsList';
+import Leaderboard from '../components/game-screen/Leaderboard';
 
 function GameScreenPage() {
   const { gameId = '' } = useParams();
@@ -41,7 +43,19 @@ function GameScreenPage() {
         <PlayerAvatars playerNames={playerNames} />
       </Flex>
 
-      <RoundsList gameId={game.id} />
+      <Tabs variant="pills" radius="xl" defaultValue="1">
+        <Tabs.List>
+          <Tabs.Tab value="1">Rounds Log</Tabs.Tab>
+          <Tabs.Tab value="2">Leaderboard</Tabs.Tab>
+        </Tabs.List>
+
+        <Tabs.Panel value="1">
+          <RoundsList gameId={game.id} />
+        </Tabs.Panel>
+        <Tabs.Panel value="2">
+          <Leaderboard gameId={game.id} />
+        </Tabs.Panel>
+      </Tabs>
 
       <AddRoundButton
         betSize={betSize}

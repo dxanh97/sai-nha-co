@@ -16,7 +16,6 @@ import { selectGameById } from '../../redux/game.selector';
 import { deleteRound } from '../../redux/round.slice';
 import { getColor } from '../../utils/helpers';
 
-
 interface Props {
   gameId: string;
 }

@@ -1,61 +1,92 @@
+import { useMemo } from 'react';
 import {
   Avatar,
   Box,
   Card,
   Group,
   Indicator,
+  ScrollArea,
   Stack,
   Text,
 } from '@mantine/core';
 import { Sparkline } from '@mantine/charts';
 
-import { getColor } from '../../utils/helpers';
+import { useAppSelector } from '../../redux/store';
+import { selectAllRoundsFromGameId } from '../../redux/round.selector';
 
-const data = [
-  { name: 'Thu Hien', stat: 100 },
-  { name: 'Xanh', stat: -200 },
-  { name: 'Dat', stat: -100 },
-  { name: 'Xuan Hoang', stat: -200 },
-  { name: 'Minh Hoang', stat: 150 },
-  { name: 'Phat', stat: -150 },
-];
+import { getColor, getSum } from '../../utils/helpers';
 
-function Leaderboard() {
-  const list = [...data].sort((a, b) => b.stat - a.stat);
+interface Props {
+  gameId: string;
+}
+
+function Leaderboard(props: Props) {
+  const { gameId } = props;
+  const rounds = useAppSelector((s) => selectAllRoundsFromGameId(s, gameId));
+  const playerHistory = useMemo(
+    () =>
+      rounds.reduce<{
+        [playerName: string]: number[];
+      }>((acc, cur) => {
+        const playerNames = Object.keys(cur.stats);
+        const result = { ...acc };
+        playerNames.forEach((name) => {
+          const history = result[name] ?? [0];
+          result[name] = [...history, getSum(history) + cur.stats[name]];
+        });
+        return result;
+      }, {}),
+    [rounds],
+  );
+
+  const dataList = useMemo(
+    () =>
+      Object.keys(playerHistory).map((name) => ({
+        name,
+        stat: getSum(playerHistory[name]),
+      })),
+    [playerHistory],
+  );
+
+  const list = useMemo(
+    () => [...dataList].sort((a, b) => b.stat - a.stat),
+    [dataList],
+  );
 
   const top3 = [
     {
       medal: '🥈',
-      name: list[1].name,
-      stat: list[1].stat,
+      name: list[1]?.name,
+      stat: list[1]?.stat,
     },
     {
       medal: '🥇',
-      name: list[0].name,
-      stat: list[0].stat,
+      name: list[0]?.name,
+      stat: list[0]?.stat,
     },
     {
       medal: '🥉',
-      name: list[2].name,
-      stat: list[2].stat,
+      name: list[2]?.name,
+      stat: list[2]?.stat,
     },
   ];
-  const positiveTrend = [10, 20, 40, 20, 40, 10, 50, 5, 10];
 
   return (
-    <Box>
-      <Group justify="space-around">
+    <ScrollArea>
+      <Group justify="space-around" py="xl">
         {top3.map((x, i) => (
-          <Box pt={i !== 1 ? '80px' : 0}>
+          <Box pt={i !== 1 ? '80px' : 0} ta="center">
             <Indicator
               inline
               label={<Text fz={i !== 1 ? '40px' : '50px'}>{x.medal}</Text>}
               size={0}
             >
-              <Avatar name={x.name} color="initials" size="lg" />
+              <Avatar name={x.name} color="initials" size="lg">
+                {x.name ? null : '👤'}
+              </Avatar>
             </Indicator>
             <Text fz={i !== 1 ? '20px' : '28px'} fw={800} c={getColor(x.stat)}>
-              {x.stat}
+              {x.stat ?? 0}
             </Text>
           </Box>
         ))}
@@ -83,7 +114,7 @@ function Leaderboard() {
                 <Sparkline
                   w="100%"
                   h={50}
-                  data={positiveTrend}
+                  data={playerHistory[x.name]}
                   curveType="natural"
                   trendColors={{
                     positive: 'green',
@@ -98,7 +129,7 @@ function Leaderboard() {
           ))}
         </Box>
       </Group>
-    </Box>
+    </ScrollArea>
   );
 }
 

@@ -13,7 +13,7 @@ import {
 import { Carousel } from '@mantine/carousel';
 import { useDisclosure, useMap } from '@mantine/hooks';
 
-import { getColor } from '../../utils/helpers';
+import { getColor, getSum } from '../../utils/helpers';
 
 interface Props {
   betSize: number;
@@ -31,7 +31,7 @@ function AddRoundButton(props: Props) {
     }
   }, [opened, statsMap]);
 
-  const balance = Array.from(statsMap.values()).reduce((sum, x) => sum + x, 0);
+  const balance = getSum(Array.from(statsMap.values()));
 
   const jackpotAmount = (playerNames.length - 1) * betSize;
   const onJackpot = (winner: string) => {
