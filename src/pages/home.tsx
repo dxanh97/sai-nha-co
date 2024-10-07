@@ -64,7 +64,7 @@ function HomePage() {
             />
             <Group>
               <EmojiButton
-                emoji="🔍"
+                emoji="📝"
                 onClick={() => navigate(`/game/${x.id}`)}
               />
               <EmojiButton emoji="🗑️" onClick={() => onDeleteGame(x.id)} />
