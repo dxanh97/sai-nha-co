@@ -4,17 +4,22 @@ import { Link } from 'react-router-dom';
 
 interface Props {
   title: string;
+  isHome?: boolean;
 }
 
 function TopNav(props: PropsWithChildren<Props>) {
-  const { title, children } = props;
+  const { title, isHome = false, children } = props;
 
   return (
     <Group justify="space-between" align="center">
       <Group>
-        <Link to="/">
-          <Text fz="30px">🔙</Text>
-        </Link>
+        {isHome ? (
+          <Text fz="30px">📒</Text>
+        ) : (
+          <Link to="/">
+            <Text fz="30px">🔙</Text>
+          </Link>
+        )}
         <Text size="xl" fw={800}>
           {title}
         </Text>

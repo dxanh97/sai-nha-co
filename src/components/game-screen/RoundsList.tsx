@@ -16,6 +16,8 @@ import { selectGameById } from '../../redux/game.selector';
 import { deleteRound } from '../../redux/round.slice';
 import { formatNumber, getColor } from '../../utils/helpers';
 
+import Empty from '../shared/Empty';
+
 interface Props {
   gameId: string;
 }
@@ -45,15 +47,8 @@ function RoundsList(props: Props) {
 
   return (
     <ScrollArea>
-      {rounds.length === 0 && (
-        <Box ta="center" py="150px">
-          <Text fz="100px">🃏</Text>
-          <Text fz="h3" fw={500}>
-            Empty
-          </Text>
-          <Text>No round yet</Text>
-        </Box>
-      )}
+      {rounds.length === 0 && <Empty emoji="🃏" subTitle="No round yet" />}
+
       {rounds.map((round, i) => {
         const { id, stats, timestamp } = round;
         return (

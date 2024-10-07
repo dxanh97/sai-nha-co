@@ -13,8 +13,9 @@ import { Sparkline } from '@mantine/charts';
 
 import { useAppSelector } from '../../redux/store';
 import { selectAllRoundsFromGameId } from '../../redux/round.selector';
-
 import { formatNumber, getColor } from '../../utils/helpers';
+
+import Empty from '../shared/Empty';
 
 interface Props {
   gameId: string;
@@ -135,15 +136,14 @@ function Leaderboard(props: Props) {
       </Group>
     </ScrollArea>
   ) : (
-    <Box ta="center" py="150px">
-      <Text fz="100px">🏜️</Text>
-      <Text fz="h3" fw={500}>
-        Empty
-      </Text>
-      <Text>
-        Need <b>{3 - rounds.length}</b> more rounds
-      </Text>
-    </Box>
+    <Empty
+      emoji="🏜️"
+      subTitle={
+        <>
+          Need <b>{3 - rounds.length}</b> more rounds
+        </>
+      }
+    />
   );
 }
 
