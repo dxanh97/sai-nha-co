@@ -31,6 +31,27 @@
       rel="stylesheet"
     />
     <title>Blind Log</title>
+    <script type="module">
+      // Import the functions you need from the SDKs you need
+      import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.14.0/firebase-app.js';
+      import { getAnalytics } from 'https://www.gstatic.com/firebasejs/10.14.0/firebase-analytics.js';
+
+      // Your web app's Firebase configuration
+      // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+      const firebaseConfig = {
+        apiKey: 'AIzaSyAK81n9AXTCbHm6DHxNVgXAeYgSqUoQo00',
+        authDomain: 'bet-log-24881.firebaseapp.com',
+        projectId: 'bet-log-24881',
+        storageBucket: 'bet-log-24881.appspot.com',
+        messagingSenderId: '467822681972',
+        appId: '1:467822681972:web:f7cae0753fc39e2845d621',
+        measurementId: 'G-NN086FYZNT',
+      };
+
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const analytics = getAnalytics(app);
+    </script>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
