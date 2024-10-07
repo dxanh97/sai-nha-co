@@ -17,7 +17,9 @@ function TopNav(props: PropsWithChildren<Props>) {
           <Text fz="30px">📒</Text>
         ) : (
           <Link to="/">
-            <Text fz="30px">🔙</Text>
+            <Text fz="30px" style={{ textShadow: '1px 1px 2px white' }}>
+              🔙
+            </Text>
           </Link>
         )}
         <Text size="xl" fw={800}>

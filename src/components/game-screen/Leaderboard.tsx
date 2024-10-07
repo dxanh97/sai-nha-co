@@ -80,7 +80,7 @@ function Leaderboard(props: Props) {
     <ScrollArea>
       <Group justify="space-around" pt="xl">
         {top3.map((x, i) => (
-          <Box key={x.name} pt={i !== 1 ? '80px' : 0} ta="center">
+          <Box key={x.medal} pt={i !== 1 ? '80px' : 0} ta="center">
             <Indicator
               inline
               label={<Text fz={i !== 1 ? '40px' : '50px'}>{x.medal}</Text>}

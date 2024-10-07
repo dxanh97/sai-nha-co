@@ -15,6 +15,8 @@ import { useDisclosure, useMap } from '@mantine/hooks';
 
 import { formatNumber, getColor, getSum } from '../../utils/helpers';
 
+import AddActionButton from '../shared/AddActionButton';
+
 interface Props {
   betSize: number;
   playerNames: string[];
@@ -140,19 +142,7 @@ function AddRoundButton(props: Props) {
         </Button>
       </Modal>
 
-      <ActionIcon
-        variant="light"
-        size="xl"
-        radius="xl"
-        pos="fixed"
-        bottom={20}
-        right={20}
-        onClick={open}
-      >
-        <Text fz="xl" lh={0}>
-          ➕
-        </Text>
-      </ActionIcon>
+      <AddActionButton onClick={open} />
     </>
   );
 }

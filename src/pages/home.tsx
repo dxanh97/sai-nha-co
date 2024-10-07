@@ -1,4 +1,4 @@
-import { ActionIcon, Box, Card, Group, Text } from '@mantine/core';
+import { Box, Card, Group, Text } from '@mantine/core';
 import { modals } from '@mantine/modals';
 import { useNavigate } from 'react-router-dom';
 
@@ -10,6 +10,7 @@ import { formatDateTime } from '../utils/helpers';
 import TopNav from '../components/shared/TopNav';
 import Empty from '../components/shared/Empty';
 import PlayerAvatars from '../components/game-screen/PlayerAvatars';
+import AddActionButton from '../components/shared/AddActionButton';
 
 function HomePage() {
   const navigate = useNavigate();
@@ -59,19 +60,7 @@ function HomePage() {
           <PlayerAvatars playerNames={x.playerNames} />
         </Card>
       ))}
-      <ActionIcon
-        variant="light"
-        size="xl"
-        radius="xl"
-        pos="fixed"
-        bottom={20}
-        right={20}
-        onClick={() => navigate('/new-game')}
-      >
-        <Text fz="xl" lh={0}>
-          ➕
-        </Text>
-      </ActionIcon>
+      <AddActionButton onClick={() => navigate('/new-game')} />
     </Box>
   );
 }
