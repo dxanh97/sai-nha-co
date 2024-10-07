@@ -7,7 +7,7 @@ interface Props {
 }
 
 function Empty(props: Props) {
-  const { emoji, title = 'Empty', subTitle } = props;
+  const { emoji, title = 'Trống quắc', subTitle } = props;
 
   return (
     <Box ta="center" py="150px">

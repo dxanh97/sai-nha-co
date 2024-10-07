@@ -36,19 +36,19 @@ function RoundsList(props: Props) {
 
   const onDeleteRound = (roundId: string) => {
     modals.openConfirmModal({
-      title: 'Delete this round?',
+      title: 'Xoá ván này?',
       size: 'sm',
       radius: 'md',
       withCloseButton: false,
       centered: true,
-      labels: { confirm: 'Confirm', cancel: 'Cancel' },
+      labels: { confirm: 'Oke', cancel: 'Thoi' },
       onConfirm: () => dispatch(deleteRound(roundId)),
     });
   };
 
   return (
     <ScrollArea>
-      {rounds.length === 0 && <Empty emoji="🃏" subTitle="No round yet" />}
+      {rounds.length === 0 && <Empty emoji="🃏" subTitle="Chưa có ván nào" />}
 
       {rounds.map((round, i) => {
         const { id, stats, timestamp } = round;

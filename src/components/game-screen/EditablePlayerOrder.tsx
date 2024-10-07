@@ -31,12 +31,7 @@ function EditablePlayerOrder(props: Props) {
       <Box onClick={open}>
         <PlayerAvatars playerNames={game.playerNames} />
       </Box>
-      <Modal
-        opened={opened}
-        onClose={close}
-        title="Update player order"
-        fullScreen
-      >
+      <Modal opened={opened} onClose={close} title="Sắp xếp vị trí" fullScreen>
         <DragDropContext
           onDragEnd={({ destination, source }) =>
             handlers.reorder({
@@ -74,7 +69,7 @@ function EditablePlayerOrder(props: Props) {
           </Droppable>
         </DragDropContext>
         <Button variant="light" fullWidth onClick={handleUpdateOrder}>
-          Save
+          Lưu
         </Button>
       </Modal>
     </>

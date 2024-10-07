@@ -10,8 +10,8 @@ function AddPlayerInput(props: Props) {
 
   return (
     <TagsInput
-      label="Press Enter to add a player"
-      placeholder="Player name"
+      label="Nhấn 'Enter/Nhập' để thêm người chơi"
+      placeholder="Tên người chơi"
       value={playerNames}
       onChange={onChange}
     />

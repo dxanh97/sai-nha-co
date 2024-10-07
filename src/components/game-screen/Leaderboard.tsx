@@ -140,7 +140,7 @@ function Leaderboard(props: Props) {
       emoji="🏜️"
       subTitle={
         <>
-          Need <b>{3 - rounds.length}</b> more rounds
+          Thêm <b>{3 - rounds.length}</b> ván nữa đê
         </>
       }
     />
