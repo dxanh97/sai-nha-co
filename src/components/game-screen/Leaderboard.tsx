@@ -14,6 +14,7 @@ import { Sparkline } from '@mantine/charts';
 import { useAppSelector } from '../../redux/store';
 import { selectAllRoundsFromGameId } from '../../redux/round.selector';
 import { formatNumber, getColor } from '../../utils/helpers';
+import { selectGameById } from '../../redux/game.selector';
 
 import Empty from '../shared/Empty';
 
@@ -24,21 +25,27 @@ interface Props {
 function Leaderboard(props: Props) {
   const { gameId } = props;
   const rounds = useAppSelector((s) => selectAllRoundsFromGameId(s, gameId));
+  const game = useAppSelector((s) => selectGameById(s, gameId));
+  const { playerNames } = game;
   const playerHistory = useMemo(
     () =>
       [...rounds.reverse()].reduce<{
         [playerName: string]: number[];
-      }>((acc, cur) => {
-        const playerNames = Object.keys(cur.stats);
-        return playerNames.reduce((result, name) => {
-          const history = acc[name] ?? [0];
-          return {
-            ...result,
-            [name]: [...history, history[history.length - 1] + cur.stats[name]],
-          };
-        }, {});
-      }, {}),
-    [rounds],
+      }>(
+        (acc, cur) =>
+          playerNames.reduce((result, name) => {
+            const history = acc[name] ?? [0];
+            return {
+              ...result,
+              [name]: [
+                ...history,
+                history[history.length - 1] + (cur.stats[name] ?? 0),
+              ],
+            };
+          }, {}),
+        {},
+      ),
+    [rounds, playerNames],
   );
 
   const dataList = useMemo(
