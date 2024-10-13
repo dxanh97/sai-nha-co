@@ -5,9 +5,9 @@ import { DragDropContext, Draggable, Droppable } from '@hello-pangea/dnd';
 
 import { useAppDispatch, useAppSelector } from '../../redux/store';
 import { selectGameById } from '../../redux/game.selector';
-
-import PlayerAvatars from './PlayerAvatars';
 import { updateGamePlayerNames } from '../../redux/game.slice';
+
+import PlayerAvatars from '../shared/PlayerAvatars';
 
 interface Props {
   gameId: string;

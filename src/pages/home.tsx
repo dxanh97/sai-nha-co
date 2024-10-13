@@ -10,7 +10,7 @@ import { formatDateTime } from '../utils/helpers';
 
 import TopNav from '../components/shared/TopNav';
 import Empty from '../components/shared/Empty';
-import PlayerAvatars from '../components/game-screen/PlayerAvatars';
+import PlayerAvatars from '../components/shared/PlayerAvatars';
 import AddActionButton from '../components/shared/AddActionButton';
 import EmojiButton from '../components/shared/EmojiButton';
 

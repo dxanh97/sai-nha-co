@@ -13,11 +13,12 @@ import { modals } from '@mantine/modals';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
 import { selectAllRoundsFromGameId } from '../../redux/round.selector';
 import { selectGameById } from '../../redux/game.selector';
-import { deleteRound } from '../../redux/round.slice';
+import { deleteRound, updateRound } from '../../redux/round.slice';
 import { formatNumber, getColor } from '../../utils/helpers';
 
 import Empty from '../shared/Empty';
 import EmojiButton from '../shared/EmojiButton';
+import EditRoundButton from './EditRoundButton';
 
 interface Props {
   gameId: string;
@@ -32,6 +33,15 @@ function RoundsList(props: Props) {
   const formatDate = (timestamp: number) => {
     const date = new Date(timestamp);
     return date.toLocaleTimeString();
+  };
+
+  const onUpdateRound = (roundId: string, statsMap: Map<string, number>) => {
+    dispatch(
+      updateRound({
+        id: roundId,
+        stats: Object.fromEntries(statsMap.entries()),
+      }),
+    );
   };
 
   const onDeleteRound = (roundId: string) => {
@@ -59,7 +69,13 @@ function RoundsList(props: Props) {
                 <Text c="dimmed">
                   {`#${rounds.length - i} - ${formatDate(timestamp)}`}
                 </Text>
-                <EmojiButton emoji="🗑️" onClick={() => onDeleteRound(id)} />
+                <Group>
+                  <EditRoundButton
+                    roundId={round.id}
+                    onSave={(statsMap) => onUpdateRound(round.id, statsMap)}
+                  />
+                  <EmojiButton emoji="🗑️" onClick={() => onDeleteRound(id)} />
+                </Group>
               </Group>
               <ScrollArea>
                 <Flex gap="xs" my="xs">

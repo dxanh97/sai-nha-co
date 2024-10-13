@@ -43,7 +43,7 @@ root.render(
     <ModalsProvider>
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
-          <Container p="sm">
+          <Container p="sm" pos="relative">
             <BrowserRouter>
               <Routes>
                 <Route

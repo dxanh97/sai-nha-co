@@ -27,9 +27,19 @@ const roundSlice = createSlice({
         timestamp: new Date().getTime(),
       });
     },
+    updateRound: (
+      state,
+      action: PayloadAction<Pick<Round, 'id' | 'stats'>>,
+    ) => {
+      const { id, stats } = action.payload;
+      roundAdaptor.updateOne(state, {
+        id,
+        changes: { stats },
+      });
+    },
     deleteRound: roundAdaptor.removeOne,
   },
 });
 
-export const { createRound, deleteRound } = roundSlice.actions;
+export const { createRound, updateRound, deleteRound } = roundSlice.actions;
 export default roundSlice;
