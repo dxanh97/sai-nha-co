@@ -1,5 +1,6 @@
 import { MouseEventHandler } from 'react';
-import { ActionIcon, Text, useComputedColorScheme } from '@mantine/core';
+import { ActionIcon, useComputedColorScheme } from '@mantine/core';
+import { IconPlus } from '@tabler/icons-react';
 
 interface Props {
   onClick: MouseEventHandler<HTMLButtonElement>;
@@ -19,9 +20,7 @@ function AddActionButton(props: Props) {
       right={20}
       onClick={onClick}
     >
-      <Text fz="xl" lh={0}>
-        ➕
-      </Text>
+      <IconPlus />
     </ActionIcon>
   );
 }

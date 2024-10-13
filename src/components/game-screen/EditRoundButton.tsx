@@ -11,14 +11,13 @@ import {
 } from '@mantine/core';
 import { Carousel } from '@mantine/carousel';
 import { useDisclosure, useMap } from '@mantine/hooks';
+import { IconEdit } from '@tabler/icons-react';
 
 import { selectRoundById } from '../../redux/round.selector';
 import { useAppSelector } from '../../redux/store';
 import { selectGameById } from '../../redux/game.selector';
 
 import { formatNumber, getColor, getSum } from '../../utils/helpers';
-
-import EmojiButton from '../shared/EmojiButton';
 
 interface Props {
   roundId: string;
@@ -143,7 +142,9 @@ function EditRoundButton(props: Props) {
         </Button>
       </Modal>
 
-      <EmojiButton emoji="📝" onClick={open} />
+      <ActionIcon variant="subtle" onClick={open}>
+        <IconEdit />
+      </ActionIcon>
     </>
   );
 }

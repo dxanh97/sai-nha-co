@@ -1,7 +1,8 @@
-import { Box, Card, Group, Input, Text } from '@mantine/core';
+import { ActionIcon, Box, Card, Group, Input, Text } from '@mantine/core';
 import { useDebouncedCallback } from '@mantine/hooks';
 import { modals } from '@mantine/modals';
 import { useNavigate } from 'react-router-dom';
+import { IconEdit, IconTrashX } from '@tabler/icons-react';
 
 import { useAppDispatch, useAppSelector } from '../redux/store';
 import { selectAllGames } from '../redux/game.selector';
@@ -12,7 +13,6 @@ import TopNav from '../components/shared/TopNav';
 import Empty from '../components/shared/Empty';
 import PlayerAvatars from '../components/shared/PlayerAvatars';
 import AddActionButton from '../components/shared/AddActionButton';
-import EmojiButton from '../components/shared/EmojiButton';
 
 function HomePage() {
   const navigate = useNavigate();
@@ -61,11 +61,15 @@ function HomePage() {
               onChange={(e) => handleUpdateName(x.id, e.target.value)}
             />
             <Group>
-              <EmojiButton
-                emoji="📝"
+              <ActionIcon
+                variant="subtle"
                 onClick={() => navigate(`/game/${x.id}`)}
-              />
-              <EmojiButton emoji="🗑️" onClick={() => onDeleteGame(x.id)} />
+              >
+                <IconEdit />
+              </ActionIcon>
+              <ActionIcon variant="subtle" onClick={() => onDeleteGame(x.id)}>
+                <IconTrashX />
+              </ActionIcon>
             </Group>
           </Group>
           <Text c="dimmed">{formatDateTime(x.timestamp)}</Text>

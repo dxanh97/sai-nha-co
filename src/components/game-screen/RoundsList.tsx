@@ -1,4 +1,5 @@
 import {
+  ActionIcon,
   Avatar,
   Box,
   Card,
@@ -9,6 +10,7 @@ import {
   Text,
 } from '@mantine/core';
 import { modals } from '@mantine/modals';
+import { IconTrashX } from '@tabler/icons-react';
 
 import { useAppDispatch, useAppSelector } from '../../redux/store';
 import { selectAllRoundsFromGameId } from '../../redux/round.selector';
@@ -17,7 +19,6 @@ import { deleteRound, updateRound } from '../../redux/round.slice';
 import { formatNumber, getColor } from '../../utils/helpers';
 
 import Empty from '../shared/Empty';
-import EmojiButton from '../shared/EmojiButton';
 import EditRoundButton from './EditRoundButton';
 
 interface Props {
@@ -64,9 +65,9 @@ function RoundsList(props: Props) {
         const { id, stats, timestamp } = round;
         return (
           <Box key={id} mt="md">
-            <Card shadow="sm" p="xs" py={0} radius="md" withBorder>
+            <Card shadow="sm" p="xs" pt="xs" pb={0} radius="md" withBorder>
               <Group justify="space-between">
-                <Text c="dimmed">
+                <Text fw={800}>
                   {`#${rounds.length - i} - ${formatDate(timestamp)}`}
                 </Text>
                 <Group>
@@ -74,7 +75,12 @@ function RoundsList(props: Props) {
                     roundId={round.id}
                     onSave={(statsMap) => onUpdateRound(round.id, statsMap)}
                   />
-                  <EmojiButton emoji="🗑️" onClick={() => onDeleteRound(id)} />
+                  <ActionIcon
+                    variant="subtle"
+                    onClick={() => onDeleteRound(id)}
+                  >
+                    <IconTrashX />
+                  </ActionIcon>
                 </Group>
               </Group>
               <ScrollArea>

@@ -8,6 +8,7 @@ function PlayerAvatars(props: Props) {
   const { playerNames } = props;
   const displayedPlayers = playerNames.slice(0, 3);
   const hiddenPlayers = playerNames.slice(3);
+
   return (
     <Tooltip.Group openDelay={300} closeDelay={100}>
       <Avatar.Group spacing="sm">
