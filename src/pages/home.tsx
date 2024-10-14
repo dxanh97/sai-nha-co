@@ -1,12 +1,11 @@
-import { ActionIcon, Box, Card, Group, Input, Text } from '@mantine/core';
-import { useDebouncedCallback } from '@mantine/hooks';
+import { ActionIcon, Box, Card, Group, Text } from '@mantine/core';
 import { modals } from '@mantine/modals';
 import { useNavigate } from 'react-router-dom';
-import { IconEdit, IconTrashX } from '@tabler/icons-react';
+import { IconInfoSquareRounded, IconTrash } from '@tabler/icons-react';
 
 import { useAppDispatch, useAppSelector } from '../redux/store';
 import { selectAllGames } from '../redux/game.selector';
-import { deleteGame, updateGameName } from '../redux/game.slice';
+import { deleteGame } from '../redux/game.slice';
 import { formatDateTime } from '../utils/helpers';
 
 import TopNav from '../components/shared/TopNav';
@@ -33,42 +32,26 @@ function HomePage() {
     });
   };
 
-  const handleUpdateName = useDebouncedCallback((id: string, name: string) => {
-    dispatch(updateGameName({ id, name }));
-  }, 500);
-
   return (
     <Box>
       <TopNav isHome title="Sải Nhà Cố" />
 
       {allGames.length === 0 && <Empty emoji="👀" subTitle="Tạo game mới đê" />}
       {allGames.map((x) => (
-        <Card
-          key={x.id}
-          shadow="sm"
-          p="xs"
-          pt={0}
-          mt="sm"
-          radius="md"
-          withBorder
-        >
+        <Card key={x.id} shadow="sm" p="xs" mt="sm" radius="md" withBorder>
           <Group justify="space-between">
-            <Input
-              variant="unstyled"
-              defaultValue={x.name}
-              size="lg"
-              fw={800}
-              onChange={(e) => handleUpdateName(x.id, e.target.value)}
-            />
-            <Group>
+            <Text fw={800} fz={20}>
+              {x.name}
+            </Text>
+            <Group gap="xs">
               <ActionIcon
                 variant="subtle"
                 onClick={() => navigate(`/game/${x.id}`)}
               >
-                <IconEdit />
+                <IconInfoSquareRounded />
               </ActionIcon>
               <ActionIcon variant="subtle" onClick={() => onDeleteGame(x.id)}>
-                <IconTrashX />
+                <IconTrash />
               </ActionIcon>
             </Group>
           </Group>

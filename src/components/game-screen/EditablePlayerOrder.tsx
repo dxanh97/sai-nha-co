@@ -2,6 +2,7 @@
 import { Avatar, Box, Button, Card, Group, Modal, Text } from '@mantine/core';
 import { useDisclosure, useListState } from '@mantine/hooks';
 import { DragDropContext, Draggable, Droppable } from '@hello-pangea/dnd';
+import { IconGripVertical } from '@tabler/icons-react';
 
 import { useAppDispatch, useAppSelector } from '../../redux/store';
 import { selectGameById } from '../../redux/game.selector';
@@ -48,7 +49,6 @@ function EditablePlayerOrder(props: Props) {
                     {(draggableProvided) => (
                       <Card
                         {...draggableProvided.draggableProps}
-                        {...draggableProvided.dragHandleProps}
                         ref={draggableProvided.innerRef}
                         mb="sm"
                         p="xs"
@@ -56,8 +56,16 @@ function EditablePlayerOrder(props: Props) {
                         withBorder
                       >
                         <Group>
-                          <Avatar name={item} color="initials" />
-                          <Text fw={800}>{item}</Text>
+                          <Group flex={1}>
+                            <Avatar name={item} color="initials" />
+                            <Text fw={800}>{item}</Text>
+                          </Group>
+                          <Box
+                            display="contents"
+                            {...draggableProvided.dragHandleProps}
+                          >
+                            <IconGripVertical />
+                          </Box>
                         </Group>
                       </Card>
                     )}

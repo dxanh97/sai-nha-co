@@ -10,7 +10,7 @@ import {
   Text,
 } from '@mantine/core';
 import { modals } from '@mantine/modals';
-import { IconTrashX } from '@tabler/icons-react';
+import { IconTrash } from '@tabler/icons-react';
 
 import { useAppDispatch, useAppSelector } from '../../redux/store';
 import { selectAllRoundsFromGameId } from '../../redux/round.selector';
@@ -70,7 +70,7 @@ function RoundsList(props: Props) {
                 <Text fw={800}>
                   {`#${rounds.length - i} - ${formatDate(timestamp)}`}
                 </Text>
-                <Group>
+                <Group gap="xs">
                   <EditRoundButton
                     roundId={round.id}
                     onSave={(statsMap) => onUpdateRound(round.id, statsMap)}
@@ -79,7 +79,7 @@ function RoundsList(props: Props) {
                     variant="subtle"
                     onClick={() => onDeleteRound(id)}
                   >
-                    <IconTrashX />
+                    <IconTrash />
                   </ActionIcon>
                 </Group>
               </Group>
