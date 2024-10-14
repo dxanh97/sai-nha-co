@@ -38,8 +38,17 @@ const roundSlice = createSlice({
       });
     },
     deleteRound: roundAdaptor.removeOne,
+    deleteGameRounds: (state, action: PayloadAction<string>) => {
+      const roundIds = roundAdaptor
+        .getSelectors()
+        .selectAll(state)
+        .filter((round) => round.gameId === action.payload)
+        .map((round) => round.id);
+      roundAdaptor.removeMany(state, roundIds);
+    },
   },
 });
 
-export const { createRound, updateRound, deleteRound } = roundSlice.actions;
+export const { createRound, updateRound, deleteRound, deleteGameRounds } =
+  roundSlice.actions;
 export default roundSlice;

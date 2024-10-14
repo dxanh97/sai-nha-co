@@ -6,6 +6,7 @@ import { IconInfoSquareRounded, IconTrash } from '@tabler/icons-react';
 import { useAppDispatch, useAppSelector } from '../redux/store';
 import { selectAllGames } from '../redux/game.selector';
 import { deleteGame } from '../redux/game.slice';
+import { deleteGameRounds } from '../redux/round.slice';
 import { formatDateTime } from '../utils/helpers';
 
 import TopNav from '../components/shared/TopNav';
@@ -28,7 +29,10 @@ function HomePage() {
       withCloseButton: false,
       centered: true,
       labels: { confirm: 'Oke', cancel: 'Thoi' },
-      onConfirm: () => dispatch(deleteGame(gameId)),
+      onConfirm: () => {
+        dispatch(deleteGame(gameId));
+        dispatch(deleteGameRounds(gameId));
+      },
     });
   };
 
