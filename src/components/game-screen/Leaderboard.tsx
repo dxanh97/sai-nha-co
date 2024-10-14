@@ -144,7 +144,6 @@ function Leaderboard(props: Props) {
     </ScrollArea>
   ) : (
     <Empty
-      emoji="🏜️"
       subTitle={
         <>
           Thêm <b>{3 - rounds.length}</b> ván nữa đê

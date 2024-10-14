@@ -46,10 +46,7 @@ root.render(
           <Container p="sm" pos="relative">
             <BrowserRouter>
               <Routes>
-                <Route
-                  path="/"
-                  element={null} // layout component
-                >
+                <Route path="/">
                   <Route index element={<HomePage />} />
                   <Route path="/new-game" element={<NewGamePage />} />
                   <Route path="/game/:gameId" element={<GameScreenPage />} />

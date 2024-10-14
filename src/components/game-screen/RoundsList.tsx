@@ -59,7 +59,7 @@ function RoundsList(props: Props) {
 
   return (
     <ScrollArea>
-      {rounds.length === 0 && <Empty emoji="🃏" subTitle="Chưa có ván nào" />}
+      {rounds.length === 0 && <Empty subTitle="Chưa có ván nào" />}
 
       {rounds.map((round, i) => {
         const { id, stats, timestamp } = round;

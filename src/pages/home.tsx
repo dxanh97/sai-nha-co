@@ -36,7 +36,7 @@ function HomePage() {
     <Box>
       <TopNav isHome title="Sải Nhà Cố" />
 
-      {allGames.length === 0 && <Empty emoji="👀" subTitle="Tạo game mới đê" />}
+      {allGames.length === 0 && <Empty subTitle="Tạo game mới đê" />}
       {allGames.map((x) => (
         <Card key={x.id} shadow="sm" p="xs" mt="sm" radius="md" withBorder>
           <Group justify="space-between">
