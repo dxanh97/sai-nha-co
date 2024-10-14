@@ -2,6 +2,7 @@ import { useMemo } from 'react';
 import {
   Avatar,
   Box,
+  Button,
   Card,
   Group,
   Indicator,
@@ -10,6 +11,7 @@ import {
   Text,
 } from '@mantine/core';
 import { Sparkline } from '@mantine/charts';
+import { IconTableExport } from '@tabler/icons-react';
 
 import { useAppSelector } from '../redux/store';
 import { selectAllRoundsFromGameId } from '../redux/round.selector';
@@ -25,11 +27,12 @@ interface Props {
 function Leaderboard(props: Props) {
   const { gameId } = props;
   const rounds = useAppSelector((s) => selectAllRoundsFromGameId(s, gameId));
-  const game = useAppSelector((s) => selectGameById(s, gameId));
-  const { playerNames } = game;
-  const playerHistory = useMemo(
+  const { playerNames, name: gameName } = useAppSelector((s) =>
+    selectGameById(s, gameId),
+  );
+  const playerBalanceHistory = useMemo(
     () =>
-      [...rounds.reverse()].reduce<{
+      [...rounds].reverse().reduce<{
         [playerName: string]: number[];
       }>(
         (acc, cur) =>
@@ -48,16 +51,42 @@ function Leaderboard(props: Props) {
     [rounds, playerNames],
   );
 
+  const exportCSV = () => {
+    const headers = ['#', ...playerNames];
+    const rows = [...rounds]
+      .reverse()
+      .map((round, i) => [
+        `#${i + 1}`,
+        ...playerNames.map((player) => formatNumber(round.stats[player])),
+      ]);
+    const total = [
+      'Total',
+      ...playerNames.map((player) => {
+        const history = playerBalanceHistory[player];
+        return formatNumber(history[history.length - 1]);
+      }),
+    ];
+    const table = [headers, ...rows, total];
+    const blobData = [table.map((r) => r.join(',')).join('\n')];
+    const blob = new Blob(blobData, { type: 'text/csv' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = `${gameName}.csv`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   const dataList = useMemo(
     () =>
-      Object.keys(playerHistory).map((name) => {
-        const history = playerHistory[name];
+      Object.keys(playerBalanceHistory).map((name) => {
+        const history = playerBalanceHistory[name];
         return {
           name,
           stat: history[history.length - 1],
         };
       }),
-    [playerHistory],
+    [playerBalanceHistory],
   );
 
   const list = useMemo(
@@ -102,45 +131,49 @@ function Leaderboard(props: Props) {
             </Text>
           </Box>
         ))}
-        <Box p="xs" w="100%">
-          {list.map((x, i) => (
-            <Card key={x.name} shadow="sm" mb="xs">
-              <Stack mb="sm" w="100%">
-                <Group gap="sm">
-                  <Text>{`#${i + 1}`}</Text>
-                  <Avatar
-                    size={40}
-                    name={x.name}
-                    color="initials"
-                    radius={40}
-                  />
-                  <Group justify="space-between" flex={1}>
-                    <Text fz="lg" fw={500}>
-                      {x.name}
-                    </Text>
-                    <Text fz="lg" fw={800} c={getColor(x.stat)}>
-                      {formatNumber(x.stat)}
-                    </Text>
-                  </Group>
-                </Group>
-                <Sparkline
-                  w="100%"
-                  h={50}
-                  data={playerHistory[x.name]}
-                  curveType="natural"
-                  trendColors={{
-                    positive: 'green',
-                    negative: 'red',
-                    neutral: 'gray.5',
-                  }}
-                  fillOpacity={0.2}
-                  strokeWidth={5}
-                />
-              </Stack>
-            </Card>
-          ))}
-        </Box>
       </Group>
+      <Box p="xs" w="100%">
+        {list.map((x, i) => (
+          <Card key={x.name} shadow="sm" mb="xs">
+            <Stack mb="sm" w="100%">
+              <Group gap="sm">
+                <Text>{`#${i + 1}`}</Text>
+                <Avatar size={40} name={x.name} color="initials" radius={40} />
+                <Group justify="space-between" flex={1}>
+                  <Text fz="lg" fw={500}>
+                    {x.name}
+                  </Text>
+                  <Text fz="lg" fw={800} c={getColor(x.stat)}>
+                    {formatNumber(x.stat)}
+                  </Text>
+                </Group>
+              </Group>
+              <Sparkline
+                w="100%"
+                h={50}
+                data={playerBalanceHistory[x.name]}
+                curveType="natural"
+                trendColors={{
+                  positive: 'green',
+                  negative: 'red',
+                  neutral: 'gray.5',
+                }}
+                fillOpacity={0.2}
+                strokeWidth={5}
+              />
+            </Stack>
+          </Card>
+        ))}
+
+        <Button
+          fullWidth
+          variant="light"
+          leftSection={<IconTableExport size={14} />}
+          onClick={exportCSV}
+        >
+          Xuất CSV
+        </Button>
+      </Box>
     </ScrollArea>
   ) : (
     <Empty

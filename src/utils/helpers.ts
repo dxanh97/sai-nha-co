@@ -4,10 +4,7 @@ export const getColor = (n: number) => {
   return '';
 };
 
-export const formatNumber = (n: number) => {
-  if (n > 0) return `+${n}`;
-  return n;
-};
+export const formatNumber = (n: number) => (n > 0 ? `+${n}` : `${n}`);
 
 export const getSum = (list: number[]) => {
   const sum = list.reduce((acc, cur) => acc + cur, 0);
