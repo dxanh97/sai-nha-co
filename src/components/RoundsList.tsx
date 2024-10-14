@@ -12,13 +12,13 @@ import {
 import { modals } from '@mantine/modals';
 import { IconTrash } from '@tabler/icons-react';
 
-import { useAppDispatch, useAppSelector } from '../../redux/store';
-import { selectAllRoundsFromGameId } from '../../redux/round.selector';
-import { selectGameById } from '../../redux/game.selector';
-import { deleteRound, updateRound } from '../../redux/round.slice';
-import { formatNumber, getColor } from '../../utils/helpers';
+import { useAppDispatch, useAppSelector } from '../redux/store';
+import { selectAllRoundsFromGameId } from '../redux/round.selector';
+import { selectGameById } from '../redux/game.selector';
+import { deleteRound, updateRound } from '../redux/round.slice';
+import { formatNumber, getColor } from '../utils/helpers';
 
-import Empty from '../shared/Empty';
+import Empty from './shared/Empty';
 import EditRoundButton from './EditRoundButton';
 
 interface Props {

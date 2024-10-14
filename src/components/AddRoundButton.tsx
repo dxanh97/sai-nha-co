@@ -13,9 +13,9 @@ import {
 import { Carousel } from '@mantine/carousel';
 import { useDisclosure, useMap } from '@mantine/hooks';
 
-import { formatNumber, getColor, getSum } from '../../utils/helpers';
+import { formatNumber, getColor, getSum } from '../utils/helpers';
 
-import AddActionButton from '../shared/AddActionButton';
+import AddActionButton from './shared/AddActionButton';
 
 interface Props {
   betSize: number;

@@ -13,11 +13,11 @@ import { Carousel } from '@mantine/carousel';
 import { useDisclosure, useMap } from '@mantine/hooks';
 import { IconEdit } from '@tabler/icons-react';
 
-import { selectRoundById } from '../../redux/round.selector';
-import { useAppSelector } from '../../redux/store';
-import { selectGameById } from '../../redux/game.selector';
+import { selectRoundById } from '../redux/round.selector';
+import { useAppSelector } from '../redux/store';
+import { selectGameById } from '../redux/game.selector';
 
-import { formatNumber, getColor, getSum } from '../../utils/helpers';
+import { formatNumber, getColor, getSum } from '../utils/helpers';
 
 interface Props {
   roundId: string;

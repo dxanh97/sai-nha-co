@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Button, Input, NumberInput, Stack } from '@mantine/core';
+import { Button, Input, NumberInput, Stack, TagsInput } from '@mantine/core';
 import { useNavigate } from 'react-router-dom';
 import { nanoid } from '@reduxjs/toolkit';
 
@@ -7,7 +7,6 @@ import { useAppDispatch, useAppSelector } from '../redux/store';
 import { createGame } from '../redux/game.slice';
 import { selectAllGames, selectLatestGame } from '../redux/game.selector';
 
-import AddPlayerInput from '../components/AddPlayerInput';
 import TopNav from '../components/shared/TopNav';
 
 function NewGamePage() {
@@ -43,8 +42,10 @@ function NewGamePage() {
       <Input.Wrapper label="Tên game">
         <Input value={gameName} onChange={(e) => setGameName(e.target.value)} />
       </Input.Wrapper>
-      <AddPlayerInput
-        playerNames={[...playerNames]}
+      <TagsInput
+        label="Nhấn 'Enter/Nhập' để thêm người chơi"
+        placeholder="Tên người chơi"
+        value={[...playerNames]}
         onChange={setPlayerNames}
       />
       <Input.Wrapper label="Mức bẹt">

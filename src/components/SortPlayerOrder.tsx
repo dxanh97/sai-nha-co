@@ -4,17 +4,17 @@ import { useDisclosure, useListState } from '@mantine/hooks';
 import { DragDropContext, Draggable, Droppable } from '@hello-pangea/dnd';
 import { IconGripVertical } from '@tabler/icons-react';
 
-import { useAppDispatch, useAppSelector } from '../../redux/store';
-import { selectGameById } from '../../redux/game.selector';
-import { updateGamePlayerNames } from '../../redux/game.slice';
+import { useAppDispatch, useAppSelector } from '../redux/store';
+import { selectGameById } from '../redux/game.selector';
+import { updateGamePlayerNames } from '../redux/game.slice';
 
-import PlayerAvatars from '../shared/PlayerAvatars';
+import PlayerAvatars from './shared/PlayerAvatars';
 
 interface Props {
   gameId: string;
 }
 
-function EditablePlayerOrder(props: Props) {
+function SortPlayerOrder(props: Props) {
   const { gameId } = props;
   const game = useAppSelector((s) => selectGameById(s, gameId));
   const dispatch = useAppDispatch();
@@ -84,4 +84,4 @@ function EditablePlayerOrder(props: Props) {
   );
 }
 
-export default EditablePlayerOrder;
+export default SortPlayerOrder;

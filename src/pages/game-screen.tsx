@@ -6,11 +6,11 @@ import { selectGameById } from '../redux/game.selector';
 import { useAppDispatch, useAppSelector } from '../redux/store';
 import { createRound } from '../redux/round.slice';
 
-import AddRoundButton from '../components/game-screen/AddRoundButton';
-import RoundsList from '../components/game-screen/RoundsList';
-import Leaderboard from '../components/game-screen/Leaderboard';
+import AddRoundButton from '../components/AddRoundButton';
+import RoundsList from '../components/RoundsList';
+import Leaderboard from '../components/Leaderboard';
 import TopNav from '../components/shared/TopNav';
-import EditablePlayerOrder from '../components/game-screen/EditablePlayerOrder';
+import SortPlayerOrder from '../components/SortPlayerOrder';
 
 function GameScreenPage() {
   const { gameId = '' } = useParams();
@@ -37,7 +37,7 @@ function GameScreenPage() {
   return game ? (
     <Box>
       <TopNav title={gameName}>
-        <EditablePlayerOrder gameId={game.id} />
+        <SortPlayerOrder gameId={game.id} />
       </TopNav>
 
       <Tabs

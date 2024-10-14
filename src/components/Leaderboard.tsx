@@ -11,12 +11,12 @@ import {
 } from '@mantine/core';
 import { Sparkline } from '@mantine/charts';
 
-import { useAppSelector } from '../../redux/store';
-import { selectAllRoundsFromGameId } from '../../redux/round.selector';
-import { formatNumber, getColor } from '../../utils/helpers';
-import { selectGameById } from '../../redux/game.selector';
+import { useAppSelector } from '../redux/store';
+import { selectAllRoundsFromGameId } from '../redux/round.selector';
+import { formatNumber, getColor } from '../utils/helpers';
+import { selectGameById } from '../redux/game.selector';
 
-import Empty from '../shared/Empty';
+import Empty from './shared/Empty';
 
 interface Props {
   gameId: string;
