@@ -43,6 +43,13 @@ function EditRoundButton(props: Props) {
       .forEach((x) => statsMap.set(x, -betSize));
   };
 
+  const onLoseAll = (loser: string) => {
+    statsMap.set(loser, -jackpotAmount);
+    playerNames
+      .filter((x) => x !== loser)
+      .forEach((x) => statsMap.set(x, betSize));
+  };
+
   return (
     <>
       <Modal opened={opened} onClose={close} title="Sửa ván" centered>
@@ -96,7 +103,22 @@ function EditRoundButton(props: Props) {
                       {`+${betSize}`}
                     </ActionIcon>
                   </Center>
-
+                  <Button
+                    variant="light"
+                    fullWidth
+                    mt="xs"
+                    onClick={() => setStat(remaining)}
+                    disabled={remaining === 0 || remaining === stat}
+                  >
+                    {!(remaining === 0 || remaining === stat) && (
+                      <>
+                        <Text>Lấy phần dư&nbsp;</Text>
+                        <Text c={getColor(remaining)} fw={500}>
+                          ({formatNumber(remaining)})
+                        </Text>
+                      </>
+                    )}
+                  </Button>
                   <Button
                     variant="light"
                     fullWidth
@@ -114,12 +136,11 @@ function EditRoundButton(props: Props) {
                     variant="light"
                     fullWidth
                     mt="xs"
-                    onClick={() => setStat(remaining)}
-                    disabled={remaining === 0 || remaining === stat}
+                    onClick={() => onLoseAll(x)}
                   >
-                    <Text>Tính tiền nhà cái&nbsp;</Text>
-                    <Text c={getColor(remaining)} fw={500}>
-                      ({formatNumber(remaining)})
+                    <Text>Xui&nbsp;</Text>
+                    <Text c={getColor(-jackpotAmount)} fw={500}>
+                      ({formatNumber(-jackpotAmount)})
                     </Text>
                   </Button>
                 </Card>
