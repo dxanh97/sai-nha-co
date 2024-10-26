@@ -16,7 +16,7 @@ function NewGamePage() {
   const [playerNames, setPlayerNames] = useState<string[]>(
     lastGame?.playerNames ?? [],
   );
-  const [betSize, setBetSize] = useState(5);
+  const [betSize, setBetSize] = useState(lastGame?.betSize ?? 5);
   const [gameName, setGameName] = useState(`Game #${allGames.length + 1}`);
 
   const dispatch = useAppDispatch();
