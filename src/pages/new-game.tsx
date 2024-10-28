@@ -40,9 +40,14 @@ function NewGamePage() {
       <TopNav title="Game Mới" />
 
       <Input.Wrapper label="Tên game">
-        <Input value={gameName} onChange={(e) => setGameName(e.target.value)} />
+        <Input
+          size="md"
+          value={gameName}
+          onChange={(e) => setGameName(e.target.value)}
+        />
       </Input.Wrapper>
       <TagsInput
+        size="md"
         label="Nhấn 'Enter/Nhập' để thêm người chơi"
         placeholder="Tên người chơi"
         value={[...playerNames]}
@@ -50,6 +55,7 @@ function NewGamePage() {
       />
       <Input.Wrapper label="Mức bẹt">
         <NumberInput
+          size="md"
           inputMode="numeric"
           value={betSize}
           min={1}

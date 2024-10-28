@@ -62,6 +62,8 @@ function EditRoundButton(props: Props) {
               statsMap.set(x, amount);
             };
 
+            const cantTakeRemaining = remaining === 0 || remaining === stat;
+
             return (
               <Carousel.Slide key={x}>
                 <Card shadow="sm" padding="lg" radius="md" withBorder>
@@ -103,20 +105,19 @@ function EditRoundButton(props: Props) {
                       {`+${betSize}`}
                     </ActionIcon>
                   </Center>
+
                   <Button
                     variant="light"
                     fullWidth
                     mt="xs"
                     onClick={() => setStat(remaining)}
-                    disabled={remaining === 0 || remaining === stat}
+                    disabled={cantTakeRemaining}
                   >
-                    {!(remaining === 0 || remaining === stat) && (
-                      <>
-                        <Text>Lấy phần dư&nbsp;</Text>
-                        <Text c={getColor(remaining)} fw={500}>
-                          ({formatNumber(remaining)})
-                        </Text>
-                      </>
+                    <Text>Lấy phần dư&nbsp;</Text>
+                    {!cantTakeRemaining && (
+                      <Text c={getColor(remaining)} fw={500}>
+                        ({formatNumber(remaining)})
+                      </Text>
                     )}
                   </Button>
                   <Button
