@@ -3,10 +3,8 @@ import { Box, Tabs } from '@mantine/core';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { selectGameById } from '../redux/game.selector';
-import { useAppDispatch, useAppSelector } from '../redux/store';
-import { createRound } from '../redux/round.slice';
+import { useAppSelector } from '../redux/store';
 
-import AddRoundButton from '../components/AddRoundButton';
 import RoundsList from '../components/RoundsList';
 import Leaderboard from '../components/Leaderboard';
 import TopNav from '../components/shared/TopNav';
@@ -22,17 +20,7 @@ function GameScreenPage() {
     navigate('/');
   }, [navigate, game]);
 
-  const { betSize, playerNames, name: gameName } = game ?? {};
-
-  const dispatch = useAppDispatch();
-  const onSaveRound = (statsMap: Map<string, number>) => {
-    dispatch(
-      createRound({
-        gameId: game.id,
-        stats: Object.fromEntries(statsMap.entries()),
-      }),
-    );
-  };
+  const { name: gameName } = game ?? {};
 
   return game ? (
     <Box>
@@ -59,12 +47,6 @@ function GameScreenPage() {
           <Leaderboard gameId={game.id} />
         </Tabs.Panel>
       </Tabs>
-
-      <AddRoundButton
-        betSize={betSize}
-        playerNames={playerNames}
-        onSave={onSaveRound}
-      />
     </Box>
   ) : null;
 }

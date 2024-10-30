@@ -16,11 +16,12 @@ import { IconTrash } from '@tabler/icons-react';
 import { useAppDispatch, useAppSelector } from '../redux/store';
 import { selectAllRoundsFromGameId } from '../redux/round.selector';
 import { selectGameById } from '../redux/game.selector';
-import { deleteRound, updateRound } from '../redux/round.slice';
+import { createRound, deleteRound, updateRound } from '../redux/round.slice';
 import { formatNumber, getColor } from '../utils/helpers';
 
 import Empty from './shared/Empty';
 import EditRoundButton from './EditRoundButton';
+import AddRoundButton from './AddRoundButton';
 
 interface Props {
   gameId: string;
@@ -29,12 +30,23 @@ interface Props {
 function RoundsList(props: Props) {
   const { gameId } = props;
   const dispatch = useAppDispatch();
-  const game = useAppSelector((s) => selectGameById(s, gameId));
+  const { betSize, playerNames } = useAppSelector((s) =>
+    selectGameById(s, gameId),
+  );
   const rounds = useAppSelector((s) => selectAllRoundsFromGameId(s, gameId));
 
   const formatDate = (timestamp: number) => {
     const date = new Date(timestamp);
     return date.toLocaleTimeString();
+  };
+
+  const onSaveRound = (statsMap: Map<string, number>) => {
+    dispatch(
+      createRound({
+        gameId,
+        stats: Object.fromEntries(statsMap.entries()),
+      }),
+    );
   };
 
   const onUpdateRound = (roundId: string, statsMap: Map<string, number>) => {
@@ -88,7 +100,7 @@ function RoundsList(props: Props) {
               </Group>
               <ScrollArea w={width}>
                 <Flex gap="xs" my="xs">
-                  {game.playerNames.map((playerName) => {
+                  {playerNames.map((playerName) => {
                     const stat = stats[playerName];
                     return (
                       <Indicator
@@ -108,6 +120,12 @@ function RoundsList(props: Props) {
           </Box>
         );
       })}
+
+      <AddRoundButton
+        betSize={betSize}
+        playerNames={playerNames}
+        onSave={onSaveRound}
+      />
     </ScrollArea>
   );
 }
