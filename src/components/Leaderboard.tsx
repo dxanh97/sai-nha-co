@@ -112,7 +112,7 @@ function Leaderboard(props: Props) {
     },
   ];
 
-  return rounds.length >= 3 ? (
+  return rounds.length > 0 ? (
     <ScrollArea>
       <Group justify="space-around" pt="xl">
         {top3.map((x, i) => (
@@ -176,13 +176,7 @@ function Leaderboard(props: Props) {
       </Box>
     </ScrollArea>
   ) : (
-    <Empty
-      subTitle={
-        <>
-          Thêm <b>{3 - rounds.length}</b> ván nữa đê
-        </>
-      }
-    />
+    <Empty title="Y chang" subTitle="Thêm ván đê mới có BXH" />
   );
 }
 

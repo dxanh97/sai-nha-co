@@ -34,7 +34,9 @@ function GamesList() {
 
   return (
     <>
-      {allGames.length === 0 && <Empty subTitle="Tạo game mới đê" />}
+      {allGames.length === 0 && (
+        <Empty title="Chưa có game nào" subTitle="Tạo game mới đê" />
+      )}
       {allGames.map((x) => (
         <Card key={x.id} shadow="sm" p="xs" mt="sm" radius="md" withBorder>
           <Group justify="space-between">
