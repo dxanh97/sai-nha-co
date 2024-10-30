@@ -95,6 +95,15 @@ function Leaderboard(props: Props) {
     [dataList],
   );
 
+  const summary = useMemo(
+    () =>
+      list
+        .map((x) => `${x.name}: ${formatNumber(x.stat)}`)
+        .map((s) => `${s}\n`)
+        .join(''),
+    [list],
+  );
+
   const top3 = [
     {
       medal: '🥈',
@@ -166,12 +175,7 @@ function Leaderboard(props: Props) {
           </Card>
         ))}
 
-        <CopyButton
-          value={list
-            .map((x) => `${x.name}: ${formatNumber(x.stat)}`)
-            .map((s) => `${s}\n`)
-            .join('')}
-        >
+        <CopyButton timeout={3000} value={summary}>
           {({ copied, copy }) => (
             <Button
               fullWidth
