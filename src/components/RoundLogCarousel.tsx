@@ -56,7 +56,9 @@ function RoundLogCarousel(props: Props) {
               statsMap.set(x, amount);
             };
 
-            const cantTakeRemaining = remaining === 0 || remaining === stat;
+            const cantTakeRemaining =
+              (remaining === 0 && stat === 0) ||
+              (remaining !== 0 && remaining === stat);
 
             return (
               <Carousel.Slide key={x}>
