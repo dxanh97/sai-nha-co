@@ -20,11 +20,9 @@ function GameScreenPage() {
     navigate('/');
   }, [navigate, game]);
 
-  const { name: gameName } = game ?? {};
-
   return game ? (
     <Box>
-      <TopNav title={gameName}>
+      <TopNav title={game.name}>
         <SortPlayerOrder gameId={game.id} />
       </TopNav>
 
