@@ -4,6 +4,7 @@ import {
   Box,
   Button,
   Card,
+  CopyButton,
   Group,
   Indicator,
   ScrollArea,
@@ -11,7 +12,7 @@ import {
   Text,
 } from '@mantine/core';
 import { Sparkline } from '@mantine/charts';
-import { IconTableExport } from '@tabler/icons-react';
+import { IconClipboardCopy, IconTableExport } from '@tabler/icons-react';
 
 import { useAppSelector } from '../redux/store';
 import { selectAllRoundsFromGameId } from '../redux/round.selector';
@@ -165,11 +166,33 @@ function Leaderboard(props: Props) {
           </Card>
         ))}
 
+        <CopyButton
+          value={list
+            .map((x) => `${x.name}: ${formatNumber(x.stat)}`)
+            .map((s) => `${s}\n`)
+            .join('')}
+        >
+          {({ copied, copy }) => (
+            <Button
+              fullWidth
+              variant="light"
+              leftSection={<IconClipboardCopy size={14} />}
+              color={copied ? 'teal' : 'blue'}
+              onClick={copy}
+              mt="sm"
+            >
+              {copied
+                ? 'Copy rồi nhé, paste vô group chat đi'
+                : 'Copy tổng kết'}
+            </Button>
+          )}
+        </CopyButton>
         <Button
           fullWidth
           variant="light"
           leftSection={<IconTableExport size={14} />}
           onClick={exportCSV}
+          mt="sm"
         >
           Xuất CSV
         </Button>
