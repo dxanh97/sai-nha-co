@@ -10,6 +10,7 @@ import {
   Text,
 } from '@mantine/core';
 import { modals } from '@mantine/modals';
+import { useElementSize } from '@mantine/hooks';
 import { IconTrash } from '@tabler/icons-react';
 
 import { useAppDispatch, useAppSelector } from '../redux/store';
@@ -57,6 +58,8 @@ function RoundsList(props: Props) {
     });
   };
 
+  const { ref, width } = useElementSize();
+
   return (
     <ScrollArea>
       {rounds.length === 0 && <Empty subTitle="Chưa có ván nào" />}
@@ -66,7 +69,7 @@ function RoundsList(props: Props) {
         return (
           <Box key={id} mt="md">
             <Card shadow="sm" p="xs" pt="xs" pb={0} radius="md" withBorder>
-              <Group justify="space-between">
+              <Group justify="space-between" ref={i === 0 ? ref : undefined}>
                 <Text fw={800}>
                   {`#${rounds.length - i} - ${formatDate(timestamp)}`}
                 </Text>
@@ -83,7 +86,7 @@ function RoundsList(props: Props) {
                   </ActionIcon>
                 </Group>
               </Group>
-              <ScrollArea>
+              <ScrollArea w={width}>
                 <Flex gap="xs" my="xs">
                   {game.playerNames.map((playerName) => {
                     const stat = stats[playerName];
