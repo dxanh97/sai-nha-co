@@ -1,12 +1,7 @@
 import ReactDOM from 'react-dom/client';
 import { Routes, Route, BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import {
-  Container,
-  createTheme,
-  MantineProvider,
-  virtualColor,
-} from '@mantine/core';
+import { Container, createTheme, MantineProvider } from '@mantine/core';
 import { ModalsProvider } from '@mantine/modals';
 import { PersistGate } from 'redux-persist/integration/react';
 import '@mantine/core/styles.css';
@@ -28,14 +23,7 @@ const theme = createTheme({
   headings: {
     fontFamily: 'Space Grotesk',
   },
-  primaryColor: 'primary',
-  colors: {
-    primary: virtualColor({
-      name: 'primary',
-      dark: 'gray',
-      light: 'dark',
-    }),
-  },
+  primaryColor: 'violet',
 });
 
 root.render(
