@@ -98,16 +98,16 @@ function RoundsList(props: Props) {
                   </ActionIcon>
                 </Group>
               </Group>
-              <ScrollArea w={width}>
+              <ScrollArea w={width} scrollbarSize={5}>
                 <Flex gap="xs" my="xs">
                   {playerNames.map((playerName) => {
-                    const stat = stats[playerName];
+                    const stat = stats[playerName] ?? 0;
                     return (
                       <Indicator
                         key={playerName}
                         inline
                         color={getColor(stat)}
-                        label={formatNumber(stat ?? 0)}
+                        label={formatNumber(stat)}
                         size={16}
                       >
                         <Avatar name={playerName} color="initials" />

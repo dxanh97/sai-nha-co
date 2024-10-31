@@ -1,3 +1,4 @@
+import { useRef, useState } from 'react';
 import {
   ActionIcon,
   Avatar,
@@ -5,12 +6,16 @@ import {
   Button,
   Card,
   Center,
+  Flex,
   Group,
+  Indicator,
   Modal,
+  ScrollArea,
   Text,
 } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { Carousel } from '@mantine/carousel';
+import { EmblaCarouselType } from 'embla-carousel-react';
 
 import { formatNumber, getColor, getSum } from '../utils/helpers';
 
@@ -44,10 +49,52 @@ function RoundLogCarousel(props: Props) {
   };
   const [opened, { open, close }] = useDisclosure(false);
 
+  const carouselRef = useRef<EmblaCarouselType>();
+  const [selectingPlayerIndex, setSelectingPlayerIndex] = useState(0);
+
   return (
     <>
       <Modal opened={opened} onClose={close} title="Sửa ván" centered>
-        <Carousel loop slideGap="sm" slideSize="70%" withControls={false}>
+        <ScrollArea w="100%" mb="md" scrollbarSize={5}>
+          <Flex gap="xs" my="xs">
+            {playerNames.map((x, i) => {
+              const stat = statsMap.get(x) ?? 0;
+              return (
+                <Box key={x}>
+                  <Indicator
+                    inline
+                    color={getColor(stat)}
+                    label={formatNumber(stat)}
+                    size={16}
+                  >
+                    <Avatar
+                      name={x}
+                      color="initials"
+                      radius="xl"
+                      onClick={() => carouselRef.current?.scrollTo(i)}
+                    />
+                  </Indicator>
+                  <Indicator
+                    position="middle-center"
+                    size={5}
+                    disabled={i !== selectingPlayerIndex}
+                  />
+                </Box>
+              );
+            })}
+          </Flex>
+        </ScrollArea>
+
+        <Carousel
+          getEmblaApi={(ref) => {
+            carouselRef.current = ref;
+          }}
+          loop
+          slideGap="sm"
+          slideSize="70%"
+          withControls={false}
+          onSlideChange={setSelectingPlayerIndex}
+        >
           {playerNames.map((x) => {
             const stat = statsMap.get(x) ?? 0;
             const remaining = 0 - (balance - stat);
