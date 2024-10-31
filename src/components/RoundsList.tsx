@@ -73,7 +73,7 @@ function RoundsList(props: Props) {
   const { ref, width } = useElementSize();
 
   return (
-    <ScrollArea>
+    <ScrollArea ref={ref}>
       {rounds.length === 0 && <Empty subTitle="Chưa có ván nào" />}
 
       {rounds.map((round, i) => {
@@ -81,7 +81,7 @@ function RoundsList(props: Props) {
         return (
           <Box key={id} mt="md">
             <Card shadow="sm" p="xs" pt="xs" pb={0} radius="md" withBorder>
-              <Group justify="space-between" ref={i === 0 ? ref : undefined}>
+              <Group justify="space-between">
                 <Text fw={800}>
                   {`#${rounds.length - i} - ${formatDate(timestamp)}`}
                 </Text>
@@ -98,7 +98,7 @@ function RoundsList(props: Props) {
                   </ActionIcon>
                 </Group>
               </Group>
-              <ScrollArea w={width} scrollbarSize={5}>
+              <ScrollArea w={width - 22} scrollbarSize={5}>
                 <Flex gap="xs" my="xs">
                   {playerNames.map((playerName) => {
                     const stat = stats[playerName] ?? 0;
