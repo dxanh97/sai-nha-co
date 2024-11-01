@@ -16,7 +16,13 @@ import { IconClipboardCopy, IconTableExport } from '@tabler/icons-react';
 
 import { useAppSelector } from '../redux/store';
 import { selectAllRoundsFromGameId } from '../redux/round.selector';
-import { formatNumber, getColor } from '../utils/helpers';
+import {
+  calculateRanking,
+  calculateRoundResultsHistory,
+  formatNumber,
+  getColor,
+  getSummaryText,
+} from '../utils/helpers';
 import { selectGameById } from '../redux/game.selector';
 
 import Empty from './shared/Empty';
@@ -31,26 +37,18 @@ function Leaderboard(props: Props) {
   const { playerNames, name: gameName } = useAppSelector((s) =>
     selectGameById(s, gameId),
   );
-  const playerBalanceHistory = useMemo(
-    () =>
-      [...rounds].reverse().reduce<{
-        [playerName: string]: number[];
-      }>(
-        (acc, cur) =>
-          playerNames.reduce((result, name) => {
-            const history = acc[name] ?? [0];
-            return {
-              ...result,
-              [name]: [
-                ...history,
-                history[history.length - 1] + (cur.stats[name] ?? 0),
-              ],
-            };
-          }, {}),
-        {},
-      ),
+
+  const roundResultHistory = useMemo(
+    () => calculateRoundResultsHistory(rounds, playerNames),
     [rounds, playerNames],
   );
+
+  const ranking = useMemo(
+    () => calculateRanking(roundResultHistory),
+    [roundResultHistory],
+  );
+
+  const summary = useMemo(() => getSummaryText(ranking), [ranking]);
 
   const exportCSV = () => {
     const headers = ['#', ...playerNames];
@@ -63,7 +61,7 @@ function Leaderboard(props: Props) {
     const total = [
       'Total',
       ...playerNames.map((player) => {
-        const history = playerBalanceHistory[player];
+        const history = roundResultHistory[player];
         return formatNumber(history[history.length - 1]);
       }),
     ];
@@ -78,54 +76,26 @@ function Leaderboard(props: Props) {
     document.body.removeChild(link);
   };
 
-  const dataList = useMemo(
-    () =>
-      Object.keys(playerBalanceHistory).map((name) => {
-        const history = playerBalanceHistory[name];
-        return {
-          name,
-          stat: history[history.length - 1],
-        };
-      }),
-    [playerBalanceHistory],
-  );
-
-  const list = useMemo(
-    () => [...dataList].sort((a, b) => b.stat - a.stat),
-    [dataList],
-  );
-
-  const summary = useMemo(
-    () =>
-      list
-        .map((x) => `${x.name}: ${formatNumber(x.stat)}`)
-        .map((s) => `${s}\n`)
-        .join(''),
-    [list],
-  );
-
-  const top3 = [
-    {
-      medal: '🥈',
-      name: list[1]?.name,
-      stat: list[1]?.stat,
-    },
-    {
-      medal: '🥇',
-      name: list[0]?.name,
-      stat: list[0]?.stat,
-    },
-    {
-      medal: '🥉',
-      name: list[2]?.name,
-      stat: list[2]?.stat,
-    },
-  ];
-
   return rounds.length > 0 ? (
     <ScrollArea>
       <Group justify="space-around" pt="xl">
-        {top3.map((x, i) => (
+        {[
+          {
+            medal: '🥈',
+            name: ranking[1]?.name,
+            stat: ranking[1]?.stat,
+          },
+          {
+            medal: '🥇',
+            name: ranking[0]?.name,
+            stat: ranking[0]?.stat,
+          },
+          {
+            medal: '🥉',
+            name: ranking[2]?.name,
+            stat: ranking[2]?.stat,
+          },
+        ].map((x, i) => (
           <Box key={x.medal} pt={i !== 1 ? '80px' : 0} ta="center">
             <Indicator
               inline
@@ -143,7 +113,7 @@ function Leaderboard(props: Props) {
         ))}
       </Group>
       <Box p="xs" w="100%">
-        {list.map((x, i) => (
+        {ranking.map((x, i) => (
           <Card key={x.name} shadow="sm" mb="xs">
             <Stack mb="sm" w="100%">
               <Group gap="sm">
@@ -161,7 +131,7 @@ function Leaderboard(props: Props) {
               <Sparkline
                 w="100%"
                 h={50}
-                data={playerBalanceHistory[x.name]}
+                data={roundResultHistory[x.name]}
                 curveType="natural"
                 trendColors={{
                   positive: 'green',

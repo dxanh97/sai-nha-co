@@ -98,7 +98,10 @@ function RoundsList(props: Props) {
                   </ActionIcon>
                 </Group>
               </Group>
-              <ScrollArea w={width - 22} scrollbarSize={5}>
+              <ScrollArea
+                w={width - 22} // NOTE: padding 10px, border 1px => 22px
+                scrollbarSize={5}
+              >
                 <Flex gap="xs" my="xs">
                   {playerNames.map((playerName) => {
                     const stat = stats[playerName] ?? 0;
