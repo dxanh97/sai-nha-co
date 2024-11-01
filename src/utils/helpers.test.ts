@@ -17,7 +17,7 @@ describe('Utility functions', () => {
     it('should return "red" for negative numbers', () => {
       expect(getColor(-5)).toBe('red');
     });
-    it('should return an empty string for zero', () => {
+    it('should return "grey" for zero', () => {
       expect(getColor(0)).toBe('grey');
     });
   });
