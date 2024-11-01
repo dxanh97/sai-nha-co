@@ -11,6 +11,7 @@ import { formatDateTime } from '../utils/helpers';
 
 import Empty from './shared/Empty';
 import PlayerAvatars from './shared/PlayerAvatars';
+import AddActionButton from './shared/AddActionButton';
 
 function GamesList() {
   const navigate = useNavigate();
@@ -59,6 +60,7 @@ function GamesList() {
           <PlayerAvatars playerNames={x.playerNames} />
         </Card>
       ))}
+      <AddActionButton onClick={() => navigate('/new-game')} />
     </>
   );
 }
