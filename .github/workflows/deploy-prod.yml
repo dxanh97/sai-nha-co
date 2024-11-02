@@ -4,20 +4,18 @@ on:
   push:
     branches:
       - main
-    # Optionally configure to run only for specific files. For example:
-    # paths:
-    # - "website/**"
 
 jobs:
   deploy_live_website:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      # Add any build steps here. For example:
       - name: Install Dependencies
-        run: npm install
+        run: yarn
+      - name: Run Tests
+        run: yarn test --ci
       - name: Build
-        run: npm run build
+        run: yarn build
       - name: Archive Production Artifact
         uses: actions/upload-artifact@v4
         with:
