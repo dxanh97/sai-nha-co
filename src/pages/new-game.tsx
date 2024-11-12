@@ -9,6 +9,8 @@ import { selectAllGames, selectLatestGame } from '../redux/game.selector';
 
 import TopNav from '../components/shared/TopNav';
 
+const MIN_PLAYER = 3;
+
 function NewGamePage() {
   const lastGame = useAppSelector(selectLatestGame);
 
@@ -34,6 +36,8 @@ function NewGamePage() {
     );
     navigate(`/game/${id}`);
   };
+
+  const isShortOnPeople = playerNames.length < MIN_PLAYER;
 
   return (
     <Stack>
@@ -65,10 +69,12 @@ function NewGamePage() {
       <Button
         variant="light"
         fullWidth
-        disabled={playerNames.length < 3 || !gameName || betSize < 1}
+        disabled={isShortOnPeople || !gameName || betSize < 1}
         onClick={onStartGame}
       >
-        Zô
+        {isShortOnPeople
+          ? `(Thêm ${MIN_PLAYER - playerNames.length} người nữa mới đủ)`
+          : 'Zô'}
       </Button>
     </Stack>
   );
