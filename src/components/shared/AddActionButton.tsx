@@ -1,5 +1,5 @@
 import { MouseEventHandler } from 'react';
-import { ActionIcon, useComputedColorScheme } from '@mantine/core';
+import { ActionIcon } from '@mantine/core';
 import { IconPlus } from '@tabler/icons-react';
 
 interface Props {
@@ -8,11 +8,9 @@ interface Props {
 
 function AddActionButton(props: Props) {
   const { onClick } = props;
-  const computedColorScheme = useComputedColorScheme('light');
 
   return (
     <ActionIcon
-      variant={computedColorScheme === 'dark' ? 'white' : 'light'}
       size="xl"
       radius="xl"
       pos="fixed"
