@@ -73,7 +73,7 @@ function RoundsList(props: Props) {
   const { ref, width } = useElementSize();
 
   return (
-    <ScrollArea ref={ref}>
+    <ScrollArea ref={ref} pos="unset">
       {rounds.length === 0 && <Empty subTitle="Chưa có ván nào" />}
 
       {rounds.map((round, i) => {
