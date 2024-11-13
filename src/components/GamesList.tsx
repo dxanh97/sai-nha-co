@@ -1,7 +1,7 @@
 import { ActionIcon, Card, Group, Text } from '@mantine/core';
 import { modals } from '@mantine/modals';
 import { useNavigate } from 'react-router-dom';
-import { IconInfoSquareRounded, IconTrash } from '@tabler/icons-react';
+import { IconInfoCircle, IconTrash } from '@tabler/icons-react';
 
 import { useAppDispatch, useAppSelector } from '../redux/store';
 import { selectAllGames } from '../redux/game.selector';
@@ -49,7 +49,7 @@ function GamesList() {
                 variant="subtle"
                 onClick={() => navigate(`/game/${x.id}`)}
               >
-                <IconInfoSquareRounded />
+                <IconInfoCircle />
               </ActionIcon>
               <ActionIcon variant="subtle" onClick={() => onDeleteGame(x.id)}>
                 <IconTrash />
