@@ -117,7 +117,7 @@ function Leaderboard(props: Props) {
           <Card key={x.name} shadow="sm" mb="xs">
             <Stack mb="sm" w="100%">
               <Group gap="sm">
-                <Text>{`#${i + 1}`}</Text>
+                <Text fw={500}>{`#${i + 1}`}</Text>
                 <Avatar size={40} name={x.name} color="initials" radius={40} />
                 <Group justify="space-between" flex={1}>
                   <Text fz="lg" fw={500}>
