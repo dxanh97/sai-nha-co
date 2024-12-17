@@ -6,7 +6,7 @@ import { IconGripVertical } from '@tabler/icons-react';
 
 import { useAppDispatch, useAppSelector } from '../redux/store';
 import { selectGameById } from '../redux/game.selector';
-import { updateGamePlayerNames } from '../redux/game.slice';
+import { updateGamePlayerNamesOrder } from '../redux/game.slice';
 
 import PlayerAvatars from './shared/PlayerAvatars';
 
@@ -23,7 +23,7 @@ function SortPlayerOrder(props: Props) {
   const [state, handlers] = useListState(game.playerNames);
 
   const handleUpdateOrder = () => {
-    dispatch(updateGamePlayerNames({ id: gameId, playerNames: state }));
+    dispatch(updateGamePlayerNamesOrder({ id: gameId, playerNames: state }));
     close();
   };
 

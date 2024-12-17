@@ -25,7 +25,7 @@ const gameSlice = createSlice({
       });
     },
     deleteGame: gameAdaptor.removeOne,
-    updateGamePlayerNames: (
+    updateGamePlayerNamesOrder: (
       state,
       action: PayloadAction<{ id: string; playerNames: string[] }>,
     ) => {
@@ -38,6 +38,6 @@ const gameSlice = createSlice({
   },
 });
 
-export const { createGame, deleteGame, updateGamePlayerNames } =
+export const { createGame, deleteGame, updateGamePlayerNamesOrder } =
   gameSlice.actions;
 export default gameSlice;
