@@ -76,15 +76,13 @@ function RoundsList(props: Props) {
     <ScrollArea ref={ref}>
       {rounds.length === 0 && <Empty subTitle="Chưa có ván nào" />}
 
-      {rounds.map((round, i) => {
+      {rounds.map((round) => {
         const { id, stats, timestamp } = round;
         return (
           <Box key={id} mt="md">
             <Card shadow="sm" p="xs" pt="xs" pb={0} radius="md" withBorder>
               <Group justify="space-between">
-                <Text fw={800}>
-                  {`#${rounds.length - i} - ${formatDate(timestamp)}`}
-                </Text>
+                <Text fw={800}>{formatDate(timestamp)}</Text>
                 <Group gap="xs">
                   <EditRoundButton
                     roundId={round.id}
