@@ -12,6 +12,8 @@ jobs:
       - uses: actions/checkout@v4
       - name: Install Dependencies
         run: yarn
+      - name: Run ESLint with TypeScript
+        run: npx eslint . --ext .ts,.tsx --config ci.eslintrc
       - name: Run Tests
         run: yarn test --ci
       - name: Build
